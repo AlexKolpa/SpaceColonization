@@ -1,0 +1,5 @@
+C:\Users\Alex\Documents\Development\Graphics\BillboardSample_4_0\BillboardPipeline\bin\x86\Debug\BillboardPipeline.dll
+C:\Users\Alex\Documents\Development\Graphics\BillboardSample_4_0\BillboardPipeline\bin\x86\Debug\BillboardPipeline.pdb
+C:\Users\Alex\Documents\Development\Graphics\BillboardSample_4_0\BillboardPipeline\obj\SingleItem\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Alex\Documents\Development\Graphics\BillboardSample_4_0\BillboardPipeline\obj\SingleItem\x86\Debug\BillboardPipeline.dll
+C:\Users\Alex\Documents\Development\Graphics\BillboardSample_4_0\BillboardPipeline\obj\SingleItem\x86\Debug\BillboardPipeline.pdb

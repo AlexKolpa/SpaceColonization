@@ -1,0 +1,2 @@
+C:\Users\Alex\Documents\Development\Graphics\BillboardSample_4_0\Billboard\Content\obj\x86\Debug\ResolveAssemblyReference.cache
+X:\Development\Graphics\BillboardSample_4_0\Billboard\Content\obj\x86\Debug\ResolveAssemblyReference.cache
