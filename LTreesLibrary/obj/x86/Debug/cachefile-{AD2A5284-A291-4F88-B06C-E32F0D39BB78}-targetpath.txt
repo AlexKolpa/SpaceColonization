@@ -1,2 +1,0 @@
-Content\LTreeShaders\Leaves.xnb
-Content\LTreeShaders\Trunk.xnb

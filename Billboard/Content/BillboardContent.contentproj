@@ -102,6 +102,7 @@
       <Name>Birch</Name>
       <Importer>TreeGeneratorImporter</Importer>
       <Processor>TreeProfileProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
     <Compile Include="Trees\Gardenwood.ltree">
       <Name>Gardenwood</Name>
