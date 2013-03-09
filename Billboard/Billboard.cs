@@ -246,7 +246,7 @@ namespace Billboard
             device.BlendState = BlendState.AlphaBlend;
 
             IList<Vector3> treePos = treePositions.Trees;
-
+            //Console.WriteLine(treePos.Count);
             foreach (Vector3 position in treePos)
             {
                 tree.DrawTrunk(Matrix.CreateScale(0.02f) * Matrix.CreateTranslation(position), view, projection);
