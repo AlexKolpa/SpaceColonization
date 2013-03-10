@@ -115,6 +115,9 @@ namespace BillboardPipeline
 
             IList<Vector3> treePos = new List<Vector3>();
 
+            //Add the central tree
+            treePos.Add(new Vector3(0, 40, 0));
+
             if (mesh != null)
             {
                 // Create three new geometry objects, one for each type
@@ -158,7 +161,11 @@ namespace BillboardPipeline
 
                             if (random.NextDouble() < TreeProbability)
                             {
-                                treePos.Add(position);
+                                //To maintain the clearing around the central tree
+                                if(Math.Sqrt((position.X * position.X) + (position.Z * position.Z)) > 80)
+                                {
+                                    treePos.Add(position);
+                                }
                             }
                             else if (random.NextDouble() < CatProbability)
                             {
