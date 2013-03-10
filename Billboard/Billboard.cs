@@ -100,6 +100,26 @@ namespace Billboard
             {
                 profiles[i] = Content.Load<TreeProfile>(String.Format(profileAssetFormat, profileNames[i]));
             }
+
+            MultiMap<string, string> ruleMap = new MultiMap<string,string>();
+
+            ruleMap.Add("R", "fffffbA");
+            ruleMap.Add("A", "ff[>++Al][--Al]>>>A");
+
+            RuleSystem.SystemVariables vars = new RuleSystem.SystemVariables();            
+            vars.boneLevels = 3;
+            vars.iterations = 5;
+            vars.twistAngle = 0;
+            vars.twistVariation = 360;
+            vars.branchLength = 260;
+            vars.lengthVariation = 0;
+            vars.branchScale = 0.8f;
+            vars.pitchAngle = 20;
+            vars.pitchVariation = 0;
+
+            RuleSystem rules = new RuleSystem(ruleMap, vars, "R");
+            
+            profiles[0].Generator = TreeGenerator.ParseFromRuleSystem(rules);
         }
 
         void NewTree()
@@ -248,7 +268,7 @@ namespace Billboard
             IList<Vector3> treePos = treePositions.Trees;
             //Console.WriteLine(treePos.Count);
             foreach (Vector3 position in treePos)
-            {
+            {                
                 tree.DrawTrunk(Matrix.CreateScale(0.02f) * Matrix.CreateTranslation(position), view, projection);
             }
 

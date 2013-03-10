@@ -137,6 +137,7 @@
     <Compile Include="Trees\Instructions\Util.cs" />
     <Compile Include="Trees\LeafVertex.cs" />
     <Compile Include="Trees\MultiMap.cs" />
+    <Compile Include="Trees\RuleSystem.cs" />
     <Compile Include="Trees\SimpleTree.cs" />
     <Compile Include="Trees\TreeAnimationState.cs" />
     <Compile Include="Trees\TreeBone.cs" />

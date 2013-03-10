@@ -59,14 +59,14 @@ namespace LTreesLibrary.Trees
             get { return maxLevel; }
             set { maxLevel = value; }
         }
-        
+
         /// <summary>
         /// The leaf axis to use for generated trees.
         /// If null, the leaves are free billboards. Otherwise, they are axis-aligned
         /// around this axis. Must be a normalized vector or null.
         /// </summary>
         public Vector3? LeafAxis { get; set; }
-        
+
         /// <summary>
         /// How deep into the branches the bones should be allowed to grow. A typical value is 3.
         /// </summary>
@@ -232,7 +232,7 @@ namespace LTreesLibrary.Trees
             generator.Root = productions[rootName][0].Production;
             generator.MaxLevel = levels;
             generator.BoneLevels = boneLevels;
-            
+
             return generator;
         }
 
@@ -364,7 +364,127 @@ namespace LTreesLibrary.Trees
             return leaf;
         }
         #endregion
+        #region RuleSystem
 
+        public static TreeGenerator ParseFromRuleSystem(RuleSystem system)
+        {
+            TreeGenerator generator = new TreeGenerator();
+
+            //TODO: opbouwen ProductionStringPair
+            MultiMap<string, ProductionStringPair> map = new MultiMap<string, ProductionStringPair>();
+
+            foreach (string key in system.Rules.Map.Keys)
+            {
+                foreach (string value in system.Rules[key])
+                    map.Add(key, new ProductionStringPair(new Production(), key, value));
+            }
+
+            foreach (ProductionStringPair ps in map.Values)
+            {
+                ParseInstructionsFromRules(ps.Rules, ps.Production.Instructions, map, system.Variables);
+            }
+
+            generator.Constraints.Constaints.Add(new ConstrainUndergroundBranches(256f));
+            generator.TextureHeight = 512f;
+            generator.TextureHeightVariation = 0;
+            generator.Root = map[system.Root][0].Production;
+            generator.MaxLevel = system.Variables.iterations;
+            generator.BoneLevels = system.Variables.boneLevels;
+
+            return generator;
+        }
+
+        private static void ParseInstructionsFromRules(string rule, List<TreeCrayonInstruction> instructions, MultiMap<string, ProductionStringPair> map, RuleSystem.SystemVariables variables)
+        {
+            for (int i = 0; i < rule.Length; i++)
+            {
+                switch (rule[i])
+                {
+                    //forward
+                    case 'f':
+                        instructions.Add(new Forward(variables.branchLength, variables.lengthVariation, variables.branchScale));
+                        break;
+                    //pitch up
+                    case '+':
+                        instructions.Add(new Pitch(variables.pitchAngle, variables.pitchVariation));
+                        break;
+                    //pitch down
+                    case '-':
+                        instructions.Add(new Pitch(-variables.pitchAngle, variables.pitchVariation));
+                        break;
+                    //backwards
+                    case '|':
+                        instructions.Add(new Backward(variables.branchLength, variables.lengthVariation));
+                        break;
+                    //new child
+                    case '[':
+                        Child ch = new Child();
+                        int end = rule.IndexOf(']', i);
+                        ParseInstructionsFromRules(rule.Substring(i + 1, end - i - 1), ch.Instructions, map, variables);
+                        instructions.Add(ch);
+                        i = end;
+                        break;
+                    //closing statement for child
+                    case ']':
+                        break;
+                    //twist right
+                    case '>':
+                        instructions.Add(new Twist(variables.twistAngle, variables.twistVariation));
+                        break;
+                    //twist left
+                    case '<':
+                        instructions.Add(new Twist(-variables.twistAngle, variables.twistVariation));
+                        break;
+                    //leaf
+                    case 'l':
+                        instructions.Add(new Leaf());
+                        break;
+                        //add bone
+                    case 'b':
+                        instructions.Add(new Bone(-1));
+                        break;
+                    //rule call
+                    default:
+                        string name = rule[i].ToString();
+                        List<Production> productions = GetProductionsByRef(name, map);
+                        instructions.Add(new Call(productions, -1));
+                        break;
+                }
+            }
+        }
+
+        private static List<Production> GetProductionsByRef(String name, MultiMap<string, ProductionStringPair> map)
+        {
+            String[] names = name.Split('|');
+            List<Production> list = new List<Production>();
+            foreach (String n in names)
+            {
+                if (!map.ContainsKey(n))
+                    throw new ArgumentException(String.Format("No production exists with the name '{0}'", n));
+                List<ProductionStringPair> np = map[n];
+                foreach (ProductionStringPair pair in np)
+                {
+                    list.Add(pair.Production);
+                }
+            }
+            return list;
+        }
+
+        private struct ProductionStringPair
+        {
+            public Production Production;
+            public string Name;
+            public string Rules;
+
+            public ProductionStringPair(Production p, string n, string r)
+            {
+                Production = p;
+                Name = n;
+                Rules = r;
+            }
+        }
+
+        #endregion
 
     }
 }

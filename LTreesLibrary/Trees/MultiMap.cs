@@ -11,7 +11,7 @@ namespace LTreesLibrary.Trees
     /// <remarks>
     /// Not designed for general-purpose use.
     /// </remarks>
-    class MultiMap<KeyType, ValueType>
+    public class MultiMap<KeyType, ValueType>
     {
         private Dictionary<KeyType, List<ValueType>> map = new Dictionary<KeyType, List<ValueType>>();
 

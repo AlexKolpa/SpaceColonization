@@ -4,7 +4,7 @@
   <LeafTexture>Textures/BirchLeaf</LeafTexture>
 
   <Root ref="root" />
-  <Levels value="4" />
+  <Levels value="2" />
 
   <ConstrainUnderground lowerBound="256" />
   <TextureHeight height="512" variation="64" />
