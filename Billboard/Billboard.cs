@@ -33,6 +33,8 @@ namespace Billboard
 
         GraphicsDeviceManager graphics;
 
+        Dictionary<String, EventValuePair> treeVarMap;
+
         KeyboardState currentKeyboardState = new KeyboardState();
         GamePadState currentGamePadState = new GamePadState();
         
@@ -65,6 +67,9 @@ namespace Billboard
 
         Random treeSize = new Random();
 
+        RuleSystem rules;
+        RuleSystem.SystemVariables treeVariables;
+
         public bool EnableTrunk { get; set; }
         public bool EnableLeaves { get; set; }
         public bool EnableBones { get; set; }
@@ -73,10 +78,23 @@ namespace Billboard
         public bool EnableWind { get; set; }
         public bool EnableGround { get; set; }
 
+        private struct EventValuePair
+        {
+            public EventHandler eventValue;
+            public float value;
+            public float maximum;
+
+            public EventValuePair(EventHandler inEventValue, float inValue, float inMaximum)
+            {
+                this.eventValue = inEventValue;
+                this.value = inValue;
+                this.maximum = inMaximum;
+            }
+        }
+
         #endregion
 
         #region Initialization
-
 
         public BillboardGame()
         {
@@ -84,6 +102,7 @@ namespace Billboard
             Content.RootDirectory = "Content";
 
             //initialize form
+            this.InitRuleSystem();
             this.CreateControls();
         }
 
@@ -116,25 +135,37 @@ namespace Billboard
                 profiles[i] = Content.Load<TreeProfile>(String.Format(profileAssetFormat, profileNames[i]));
             }
 
-            MultiMap<string, string> ruleMap = new MultiMap<string,string>();
+            profiles[0].Generator = TreeGenerator.ParseFromRuleSystem(rules);
+        }
+
+        void InitRuleSystem()
+        {
+            MultiMap<string, string> ruleMap = new MultiMap<string, string>();
 
             ruleMap.Add("R", "fffffbA");
             ruleMap.Add("A", "ff[>++Al][--Al]>>>A");
 
-            RuleSystem.SystemVariables vars = new RuleSystem.SystemVariables();            
-            vars.boneLevels = 3;
-            vars.iterations = 5;
-            vars.twistAngle = 0;
-            vars.twistVariation = 360;
-            vars.branchLength = 260;
-            vars.lengthVariation = 0;
-            vars.branchScale = 0.8f;
-            vars.pitchAngle = 20;
-            vars.pitchVariation = 0;
+            treeVariables = new RuleSystem.SystemVariables();
+            treeVariables.boneLevels = 3;
+            treeVariables.iterations = 5;
+            treeVariables.twistAngle = 0;
+            treeVariables.twistVariation = 360;
+            treeVariables.branchLength = 260;
+            treeVariables.lengthVariation = 0;
+            treeVariables.branchScale = 0.8f;
+            treeVariables.pitchAngle = 20;
+            treeVariables.pitchVariation = 0;
 
-            RuleSystem rules = new RuleSystem(ruleMap, vars, "R");
-            
-            profiles[0].Generator = TreeGenerator.ParseFromRuleSystem(rules);
+            //mapping to make it easier to create the winform
+            treeVarMap = new Dictionary<string, EventValuePair>();
+            treeVarMap.Add("Bone Levels", new EventValuePair(new EventHandler(boneLevels_ValueChanged), treeVariables.boneLevels, 5));
+            treeVarMap.Add("Iterations", new EventValuePair(new EventHandler(iterations_ValueChanged), treeVariables.iterations, 20));
+            treeVarMap.Add("Branch Twist Angle", new EventValuePair(new EventHandler(twistAngle_ValueChanged), treeVariables.twistAngle, 360));
+            treeVarMap.Add("Branch Length", new EventValuePair(new EventHandler(branchLength_ValueChanged), treeVariables.branchLength, 2000));
+            treeVarMap.Add("Branch Thickness Scale", new EventValuePair(new EventHandler(branchScale_ValueChanged), treeVariables.branchScale, 1));
+            treeVarMap.Add("Pitch Angle", new EventValuePair(new EventHandler(pitchAngle_ValueChanged), treeVariables.pitchAngle, 360));
+
+            rules = new RuleSystem(ruleMap, treeVariables, "R");            
         }
 
         void NewTree()
@@ -150,9 +181,14 @@ namespace Billboard
         #endregion
         
         #region Form Controls
+
         private void CreateControls()
         {
             Form winForm = Control.FromHandle(this.Window.Handle) as Form;
+
+            Panel pnl = new Panel();
+            pnl.Location = new Point(0, 0);
+            pnl.Size = new System.Drawing.Size(200, 250);
 
             CheckBox drawLeaves = new CheckBox();
             drawLeaves.Location = new Point(10, 10);
@@ -160,12 +196,82 @@ namespace Billboard
             drawLeaves.Checked = EnableLeaves;            
             drawLeaves.CheckedChanged += new EventHandler(drawLeaves_CheckedChanged);
 
-            winForm.Controls.Add(drawLeaves);
+            pnl.Controls.Add(drawLeaves);            
+
+            int i = 1;
+            foreach (String key in treeVarMap.Keys)
+            {
+                NumericUpDown tempTreeVariableContainer = new NumericUpDown();
+                tempTreeVariableContainer.Location = new Point(10, 10 + 30 * i);
+                tempTreeVariableContainer.DecimalPlaces = 0;
+                EventValuePair pair = treeVarMap[key];
+                tempTreeVariableContainer.Width = 60;
+                tempTreeVariableContainer.Minimum = 0;
+                tempTreeVariableContainer.Maximum = (decimal)pair.maximum;
+                tempTreeVariableContainer.Value = (decimal)pair.value;
+                tempTreeVariableContainer.ValueChanged += pair.eventValue;
+
+                Label tempLabel = new Label();
+                tempLabel.Text = key;
+                tempLabel.Location = new Point(tempTreeVariableContainer.Width + 10, 10 + 30 * i++);
+
+                pnl.Controls.Add(tempTreeVariableContainer);
+                pnl.Controls.Add(tempLabel);
+            }
+
+            winForm.Controls.Add(pnl);
+        }
+
+        void boneLevels_ValueChanged(Object sender, EventArgs e)
+        {
+            NumericUpDown numSend = (NumericUpDown)sender;
+            treeVariables.boneLevels = (int)numSend.Value;
+            RecalculateTree();
+        }
+
+        void iterations_ValueChanged(Object sender, EventArgs e)
+        {
+            NumericUpDown numSend = (NumericUpDown)sender;
+            treeVariables.iterations = (int)numSend.Value;
+            RecalculateTree();
+        }
+
+        void twistAngle_ValueChanged(Object sender, EventArgs e)
+        {
+            NumericUpDown numSend = (NumericUpDown)sender;
+            treeVariables.twistAngle = (float)numSend.Value;
+            RecalculateTree();
+        }
+
+        void branchLength_ValueChanged(Object sender, EventArgs e)
+        {
+            NumericUpDown numSend = (NumericUpDown)sender;
+            treeVariables.branchLength = (float)numSend.Value;
+            RecalculateTree();
+        }
+
+        void branchScale_ValueChanged(Object sender, EventArgs e)
+        {
+            NumericUpDown numSend = (NumericUpDown)sender;
+            treeVariables.branchScale = (float)numSend.Value;
+            RecalculateTree();
+        }
+
+        void pitchAngle_ValueChanged(Object sender, EventArgs e)
+        {
+            NumericUpDown numSend = (NumericUpDown)sender;
+            treeVariables.pitchAngle = (float)numSend.Value;
+            RecalculateTree();
         }
 
         void drawLeaves_CheckedChanged(Object sender, EventArgs e)
-        {
+        {            
             EnableLeaves = !EnableLeaves;
+        }
+
+        void RecalculateTree()
+        {
+
         }
 
         #endregion
