@@ -9,6 +9,7 @@
 
 #region Using Statements
 using System;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +17,9 @@ using Microsoft.Xna.Framework.Input;
 using LTreesLibrary.Trees;
 using LTreesLibrary.Trees.Wind;
 using System.Collections.Generic;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+using Point = System.Drawing.Point;
 #endregion
 
 namespace Billboard
@@ -61,6 +65,14 @@ namespace Billboard
 
         Random treeSize = new Random();
 
+        public bool EnableTrunk { get; set; }
+        public bool EnableLeaves { get; set; }
+        public bool EnableBones { get; set; }
+        public bool EnableLight1 { get; set; }
+        public bool EnableLight2 { get; set; }
+        public bool EnableWind { get; set; }
+        public bool EnableGround { get; set; }
+
         #endregion
 
         #region Initialization
@@ -70,6 +82,9 @@ namespace Billboard
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            //initialize form
+            this.CreateControls();
         }
 
 
@@ -130,6 +145,27 @@ namespace Billboard
             // 2. Creates a mesh for the branches
             // 3. Creates a particle cloud (TreeLeafCloud) for the leaves
             tree = profiles[currentTree].GenerateSimpleTree();
+        }
+
+        #endregion
+        
+        #region Form Controls
+        private void CreateControls()
+        {
+            Form winForm = Control.FromHandle(this.Window.Handle) as Form;
+
+            CheckBox drawLeaves = new CheckBox();
+            drawLeaves.Location = new Point(10, 10);
+            drawLeaves.Text = "Display Leaves";
+            drawLeaves.Checked = EnableLeaves;            
+            drawLeaves.CheckedChanged += new EventHandler(drawLeaves_CheckedChanged);
+
+            winForm.Controls.Add(drawLeaves);
+        }
+
+        void drawLeaves_CheckedChanged(Object sender, EventArgs e)
+        {
+            EnableLeaves = !EnableLeaves;
         }
 
         #endregion
@@ -272,14 +308,16 @@ namespace Billboard
                 tree.DrawTrunk(Matrix.CreateScale(0.02f) * Matrix.CreateTranslation(position), view, projection);
             }
 
-            foreach (Vector3 position in treePos)
+            if (EnableLeaves)
             {
-                tree.DrawLeaves(Matrix.CreateScale(0.02f) * Matrix.CreateTranslation(position), view, projection);
+                foreach (Vector3 position in treePos)
+                {
+                    tree.DrawLeaves(Matrix.CreateScale(0.02f) * Matrix.CreateTranslation(position), view, projection);
+                }
             }
 
             base.Draw(gameTime);
         }
-
 
         #endregion
 
