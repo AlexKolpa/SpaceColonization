@@ -7,34 +7,32 @@ namespace LTreesLibrary.Trees.Instructions
 {
     public class Pitch : TreeCrayonInstruction
     {
-        private float angle;
+        private RuleSystem.SystemVariables vars;
 
-        private float variation;
+        private int direction;
 
         public float Variation
         {
-            get { return variation; }
-            set { variation = value; }
+            get { return MathHelper.ToRadians(vars.pitchVariation); }
         }
 
 
         public float Angle
         {
-            get { return angle; }
-            set { angle = value; }
+            get { return MathHelper.ToRadians(vars.pitchAngle) * direction; }
         }
 
-        public Pitch(float angle, float variation)
+        public Pitch(RuleSystem.SystemVariables inVars, int direction)
         {
-            this.angle = MathHelper.ToRadians(angle);
-            this.variation = MathHelper.ToRadians(variation);
+            this.vars = inVars;
+            this.direction = direction;
         }
 
         #region TreeCrayonInstruction Members
 
         public void Execute(TreeCrayon crayon, Random rnd)
         {
-            crayon.Pitch(Util.Random(rnd, angle, variation));
+            crayon.Pitch(Util.Random(rnd, Angle, Variation));
         }
 
         #endregion

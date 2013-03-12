@@ -63,8 +63,8 @@ namespace LTreesLibrary.Trees.Instructions
                 float rotation = 0.0f;
                 if (crayon.Skeleton.LeafAxis == null)
                     rotation = (float)rnd.NextDouble() * MathHelper.TwoPi;
-                crayon.Leaf(rotation, 
-                    size + sizeVariation * (2.0f * (float)rnd.NextDouble() - 1.0f), 
+                crayon.Leaf(rotation,
+                    size + sizeVariation * (2.0f * (float)rnd.NextDouble() - 1.0f),
                     color + colorVariation * (2.0f * (float)rnd.NextDouble() - 1.0f),
                     AxisOffset);
             }

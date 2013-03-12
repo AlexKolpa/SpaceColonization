@@ -41,8 +41,7 @@ namespace LTreesLibrary.Trees.Instructions
             
             crayon.Level = crayon.Level + deltaLevel;
 
-            int i = rnd.Next(0, productions.Count);
-            productions[i].Execute(crayon, rnd);
+            productions[(int)rnd.Next(0, productions.Count)].Execute(crayon, rnd);
 
             crayon.Level = crayon.Level - deltaLevel;
         }

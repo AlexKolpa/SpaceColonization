@@ -36,7 +36,9 @@ namespace LTreesLibrary.Trees
         
         public SimpleTree GenerateSimpleTree(Random random)
         {
-            SimpleTree tree = new SimpleTree(GraphicsDevice, Generator.GenerateTree(random));
+            int seed = random.Next();
+            SimpleTree tree = new SimpleTree(GraphicsDevice, Generator.GenerateTree(new Random(seed)));
+            tree.Skeleton.RandomSeed = seed;
             tree.TrunkTexture = TrunkTexture;
             tree.LeafTexture = LeafTexture;
             tree.TrunkEffect = TrunkEffect;
@@ -47,5 +49,12 @@ namespace LTreesLibrary.Trees
         {
             return GenerateSimpleTree(defaultRandom);
         }
+
+        public void RecalculateSimpleTree(SimpleTree tree)
+        {
+            tree.Skeleton = Generator.GenerateTree(new Random(tree.Skeleton.RandomSeed));
+            tree.UpdateSkeleton();
+        }
+
     }
 }

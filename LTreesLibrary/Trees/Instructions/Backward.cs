@@ -6,33 +6,29 @@ namespace LTreesLibrary.Trees.Instructions
 {
     public class Backward : TreeCrayonInstruction
     {
-        private float distance;
-        private float distanceVariation;
+        private RuleSystem.SystemVariables vars;
 
         public float DistanceVariation
         {
-            get { return distanceVariation; }
-            set { distanceVariation = value; }
+            get { return vars.backwardVariation; }
         }
 
 
         public float Distance
         {
-            get { return distance; }
-            set { distance = value; }
+            get { return vars.backwardLength; }
         }
 
-        public Backward(float distance, float variation)
+        public Backward(RuleSystem.SystemVariables inVars)
         {
-            this.distance = distance;
-            this.distanceVariation = variation;
+            this.vars = inVars;
         }
 
         #region TreeCrayonInstruction Members
 
         public void Execute(TreeCrayon crayon, Random rnd)
         {
-            crayon.Backward(Util.Random(rnd, distance, distanceVariation));
+            crayon.Backward(Util.Random(rnd.NextDouble(), Distance, DistanceVariation));
         }
 
         #endregion

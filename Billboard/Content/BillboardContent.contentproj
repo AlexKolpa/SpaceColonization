@@ -70,10 +70,6 @@
       <Project>{0EB3B2B1-33E8-4A58-9B4F-0175951D043C}</Project>
       <Name>BillboardPipeline</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\LTreesPipeline\LTreesPipeline.csproj">
-      <Project>{199AA449-800E-4908-BF49-778990A2983A}</Project>
-      <Name>LTreesPipeline</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -96,39 +92,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Trees\Birch.ltree">
-      <Name>Birch</Name>
-      <Importer>TreeGeneratorImporter</Importer>
-      <Processor>TreeProfileProcessor</Processor>
-      <SubType>Designer</SubType>
-    </Compile>
-    <Compile Include="Trees\Gardenwood.ltree">
-      <Name>Gardenwood</Name>
-      <Importer>TreeGeneratorImporter</Importer>
-      <Processor>TreeProfileProcessor</Processor>
-    </Compile>
-    <Compile Include="Trees\Graywood.ltree">
-      <Name>Graywood</Name>
-      <Importer>TreeGeneratorImporter</Importer>
-      <Processor>TreeProfileProcessor</Processor>
-    </Compile>
-    <Compile Include="Trees\Pine.ltree">
-      <Name>Pine</Name>
-      <Importer>TreeGeneratorImporter</Importer>
-      <Processor>TreeProfileProcessor</Processor>
-    </Compile>
-    <Compile Include="Trees\Rug.ltree">
-      <Name>Rug</Name>
-      <Importer>TreeGeneratorImporter</Importer>
-      <Processor>TreeProfileProcessor</Processor>
-    </Compile>
-    <Compile Include="Trees\Willow.ltree">
-      <Name>Willow</Name>
-      <Importer>TreeGeneratorImporter</Importer>
-      <Processor>TreeProfileProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Textures\BirchBark.png">
@@ -176,6 +139,9 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Trees\" />
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

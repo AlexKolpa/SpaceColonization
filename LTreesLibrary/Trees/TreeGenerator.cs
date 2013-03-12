@@ -120,7 +120,7 @@ namespace LTreesLibrary.Trees
             crayon.Skeleton.TextureHeight = textureHeight + textureHeightVariation * (2.0f * (float)rnd.NextDouble() - 1.0f);
 
             return crayon.Skeleton;
-        }
+        }        
 
         /// <summary>
         /// Generates the structure of a tree, but no vertex data.
@@ -136,8 +136,9 @@ namespace LTreesLibrary.Trees
             return GenerateTree(rnd, null);
         }
 
-
+        
         #region XML
+        /*
         /// <summary>
         /// Contains a production and the node that defined it.
         /// </summary>
@@ -257,6 +258,7 @@ namespace LTreesLibrary.Trees
             return list;
         }
 
+        
         /// <summary>
         /// Parses each child of <code>node</code> as an instruction, adds them to the specified instruction list. Calls are resolved to production lists
         /// using the specified multimap.
@@ -363,7 +365,9 @@ namespace LTreesLibrary.Trees
             }
             return leaf;
         }
+        */
         #endregion
+
         #region RuleSystem
 
         public static TreeGenerator ParseFromRuleSystem(RuleSystem system)
@@ -394,7 +398,7 @@ namespace LTreesLibrary.Trees
             return generator;
         }
 
-        private static void ParseInstructionsFromRules(string rule, List<TreeCrayonInstruction> instructions, MultiMap<string, ProductionStringPair> map, RuleSystem.SystemVariables variables)
+        unsafe private static void ParseInstructionsFromRules(string rule, List<TreeCrayonInstruction> instructions, MultiMap<string, ProductionStringPair> map, RuleSystem.SystemVariables variables)
         {
             for (int i = 0; i < rule.Length; i++)
             {
@@ -402,19 +406,19 @@ namespace LTreesLibrary.Trees
                 {
                     //forward
                     case 'f':
-                        instructions.Add(new Forward(variables.branchLength, variables.lengthVariation, variables.branchScale));
+                        instructions.Add(new Forward(variables));
                         break;
                     //pitch up
                     case '+':
-                        instructions.Add(new Pitch(variables.pitchAngle, variables.pitchVariation));
+                        instructions.Add(new Pitch(variables, 1));
                         break;
                     //pitch down
                     case '-':
-                        instructions.Add(new Pitch(-variables.pitchAngle, variables.pitchVariation));
+                        instructions.Add(new Pitch(variables, -1));
                         break;
                     //backwards
                     case '|':
-                        instructions.Add(new Backward(variables.branchLength, variables.lengthVariation));
+                        instructions.Add(new Backward(variables));
                         break;
                     //new child
                     case '[':
@@ -429,11 +433,11 @@ namespace LTreesLibrary.Trees
                         break;
                     //twist right
                     case '>':
-                        instructions.Add(new Twist(variables.twistAngle, variables.twistVariation));
+                        instructions.Add(new Twist(variables,1));
                         break;
                     //twist left
                     case '<':
-                        instructions.Add(new Twist(-variables.twistAngle, variables.twistVariation));
+                        instructions.Add(new Twist(variables,-1));
                         break;
                     //leaf
                     case 'l':

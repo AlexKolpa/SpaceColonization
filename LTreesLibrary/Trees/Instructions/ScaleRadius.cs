@@ -4,28 +4,25 @@ using System.Text;
 
 namespace LTreesLibrary.Trees.Instructions
 {
-    public class ScaleRadius : TreeCrayonInstruction
+    unsafe public class ScaleRadius : TreeCrayonInstruction
     {
-        private float scale;
-        private float variation;
+        RuleSystem.SystemVariables vars;
 
+        //TODO: add to rulesystem when necessary
         public float Variation
         {
-            get { return variation; }
-            set { variation = value; }
+            get { return 0; }
         }
 
 
         public float Scale
         {
-            get { return scale; }
-            set { scale = value; }
+            get { return 0; }
         }
 
-        public ScaleRadius(float scale, float variation)
+        public ScaleRadius(RuleSystem.SystemVariables inVars)
         {
-            this.scale = scale;
-            this.variation = variation;
+            this.vars = inVars;
         }
 
 
@@ -33,7 +30,7 @@ namespace LTreesLibrary.Trees.Instructions
 
         public void Execute(TreeCrayon crayon, Random rnd)
         {
-            crayon.ScaleRadius(Util.Random(rnd, scale, variation));
+            crayon.ScaleRadius(Util.Random(rnd, Scale, Variation));
         }
 
         #endregion

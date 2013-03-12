@@ -47,7 +47,7 @@ namespace LTreesLibrary.Trees
             root = inRoot;
         }
 
-        public struct SystemVariables
+        public class SystemVariables
         {
             public int iterations;
             public int boneLevels;
@@ -61,6 +61,9 @@ namespace LTreesLibrary.Trees
 
             public float twistAngle;
             public float twistVariation;
+
+            public float backwardLength;
+            public float backwardVariation;
         }
     }
 }

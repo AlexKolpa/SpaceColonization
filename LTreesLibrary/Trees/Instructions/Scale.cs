@@ -4,37 +4,34 @@ using System.Text;
 
 namespace LTreesLibrary.Trees.Instructions
 {
-    public class Scale : TreeCrayonInstruction
+    unsafe public class Scale : TreeCrayonInstruction
     {
-        private float scale;
+        RuleSystem.SystemVariables vars;
 
-        private float variation;
-
+        //TODO: add to rulesystem when necessary
         public float Variation
         {
-            get { return variation; }
-            set { variation = value; }
+            get { return 0; }
         }
 
 
         public float Value
         {
-            get { return scale; }
-            set { scale = value; }
+            get { return 0; }
         }
 
-        public Scale(float scale, float variation)
+        public Scale(RuleSystem.SystemVariables inVars)
         {
-            this.scale = scale;
-            this.variation = variation;
+            this.vars = inVars;
         }
 
         #region TreeCrayonInstruction Members
 
         public void Execute(TreeCrayon crayon, Random rnd)
         {
-            crayon.Scale(Util.Random(rnd, scale, variation));
+            crayon.Scale(Util.Random(rnd, Value, Variation));
         }
+
 
         #endregion
     }

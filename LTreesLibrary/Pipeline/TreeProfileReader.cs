@@ -26,7 +26,7 @@ namespace LTreesLibrary.Pipeline
 
             ContentManager content = input.ContentManager;
 
-            existingInstance.Generator = ReadGenerator(input);
+            //existingInstance.Generator = ReadGenerator(input);
             existingInstance.TrunkTexture = content.Load<Texture2D>(input.ReadString());
             existingInstance.LeafTexture = content.Load<Texture2D>(input.ReadString());
 
@@ -44,12 +44,12 @@ namespace LTreesLibrary.Pipeline
             return existingInstance;
         }
 
-        private TreeGenerator ReadGenerator(ContentReader input)
+        /*private TreeGenerator ReadGenerator(ContentReader input)
         {
             String source = input.ReadString();
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(source);
             return TreeGenerator.CreateFromXml(xml);
-        }
+        }*/
     }
 }

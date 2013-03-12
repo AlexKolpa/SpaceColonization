@@ -103,7 +103,7 @@ namespace LTreesLibrary.Trees
             set { leafTexture = value; }
         }
 
-        private void UpdateSkeleton()
+        public void UpdateSkeleton()
         {
             this.trunk = new TreeMesh(device, skeleton);
             this.leaves = new TreeLeafCloud(device, skeleton);

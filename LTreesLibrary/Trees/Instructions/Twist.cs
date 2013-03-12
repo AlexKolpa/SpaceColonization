@@ -5,35 +5,33 @@ using Microsoft.Xna.Framework;
 
 namespace LTreesLibrary.Trees.Instructions
 {
-    public class Twist : TreeCrayonInstruction
+    unsafe public class Twist : TreeCrayonInstruction
     {
-        private float angle;
-        private float variation;
+        private RuleSystem.SystemVariables vars;
+        private int direction;
 
         public float Variation
         {
-            get { return variation; }
-            set { variation = value; }
+            get { return MathHelper.ToRadians(vars.twistVariation); }
         }
 
 
         public float Angle
         {
-            get { return angle; }
-            set { angle = value; }
+            get { return MathHelper.ToRadians(vars.twistAngle)*direction; }
         }
 
-        public Twist(float angle, float variation)
+        public Twist(RuleSystem.SystemVariables inVars, int direction)
         {
-            this.angle = MathHelper.ToRadians(angle);
-            this.variation = MathHelper.ToRadians(variation);
+            this.vars = inVars;
+            this.direction = direction;
         }
 
         #region TreeCrayonInstruction Members
 
         public void Execute(TreeCrayon crayon, Random rnd)
         {
-            crayon.Twist(Util.Random(rnd, angle, variation));
+            crayon.Twist(Util.Random(rnd, Angle, Variation));
         }
 
         #endregion

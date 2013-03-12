@@ -23,7 +23,7 @@ namespace LTreesLibrary.Trees.Instructions
             Level = level;
             Type = type;
         }
-        
+
         public void Execute(TreeCrayon crayon, Random rnd)
         {
             if (crayon.Level >= Level && Type == CompareType.Greater || crayon.Level <= Level && Type == CompareType.Less)

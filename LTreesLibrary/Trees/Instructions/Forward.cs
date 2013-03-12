@@ -6,41 +6,34 @@ namespace LTreesLibrary.Trees.Instructions
 {
     public class Forward : TreeCrayonInstruction
     {
-        private float distance;
-        private float variation;
-        private float radiusScale;
+        private RuleSystem.SystemVariables vars;
 
         public float RadiusScale
         {
-            get { return radiusScale; }
-            set { radiusScale = value; }
+            get { return vars.branchScale; }
         }
 
         public float Variation
         {
-            get { return variation; }
-            set { variation = value; }
+            get { return vars.lengthVariation; }
         }
 
 
         public float Distance
         {
-            get { return distance; }
-            set { distance = value; }
+            get { return vars.branchLength; }
         }
 
-        public Forward(float distance, float variation, float radiusScale)
+        unsafe public Forward(RuleSystem.SystemVariables inVars)
         {
-            this.distance = distance;
-            this.variation = variation;
-            this.radiusScale = radiusScale;
+            this.vars = inVars;
         }
 
         #region TreeCrayonInstruction Members
 
-        public void Execute(TreeCrayon crayon, Random rnd)
+        unsafe public void Execute(TreeCrayon crayon, Random rnd)
         {
-            crayon.Forward(distance + variation * ((float)rnd.NextDouble() * 2 - 1), radiusScale);
+            crayon.Forward(Distance + Variation * ((float)rnd.NextDouble() * 2 - 1), RadiusScale);
         }
 
         #endregion

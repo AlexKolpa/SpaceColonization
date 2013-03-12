@@ -19,6 +19,7 @@ namespace LTreesLibrary.Trees
     /// <see cref="TreeCylMesh"/>
     public class TreeSkeleton
     {
+        private int randomSeed;
         private List<TreeBranch> branches = new List<TreeBranch>();
         private List<TreeLeaf> leaves = new List<TreeLeaf>();
         private List<TreeBone> bones = new List<TreeBone>();
@@ -29,6 +30,12 @@ namespace LTreesLibrary.Trees
         /// around this axis. Must be a normalized vector or null.
         /// </summary>
         public Vector3? LeafAxis { get; set; }
+
+        public int RandomSeed
+        {
+            get { return randomSeed; }
+            set { randomSeed = value; }
+        }
 
         /// <summary>
         /// How far to stretch the texture Y coordinates along the tree.

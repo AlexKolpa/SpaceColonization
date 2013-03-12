@@ -54,14 +54,14 @@ namespace LTreesLibrary.Pipeline
         public override TreeProfileContent Process(XmlDocument input, ContentProcessorContext context)
         {
             // Build a tree generator just to validate the XML format
-            try
+            /*try
             {
                 TreeGenerator.CreateFromXml(input);
             }
             catch (ArgumentException ex)
             {
                 ErrorInvalidFormat(ex.Message);
-            }
+            }*/
 
             TreeProfileContent content = new TreeProfileContent();
 

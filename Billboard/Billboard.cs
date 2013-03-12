@@ -32,30 +32,20 @@ namespace Billboard
         #region Fields
 
         GraphicsDeviceManager graphics;
-
-        Dictionary<String, EventValuePair> treeVarMap;
-
+        
         KeyboardState currentKeyboardState = new KeyboardState();
         GamePadState currentGamePadState = new GamePadState();
-        
+
+        bool mousePressed = false;
+        Vector2 deltaMousePoint = new Vector2();
+        Vector2 prevMousePos = new Vector2();
+
         Vector3 cameraPosition = new Vector3(0, 50, 50);
         Vector3 cameraFront = new Vector3(0, 0, -1);
 
         Model landscape;
 
         TreePosition treePositions;
-
-        String profileAssetFormat = "Trees/{0}";
-
-        String[] profileNames = new String[]
-        {
-            "Birch",
-            "Pine",
-            "Gardenwood",
-            "Graywood",
-            "Rug",
-            "Willow",
-        };
 
         TreeProfile[] profiles;
         int currentTree = 0;
@@ -64,9 +54,7 @@ namespace Billboard
 
         TreeWindAnimator animator;
         WindStrengthSin wind;
-
-        Random treeSize = new Random();
-
+        
         RuleSystem rules;
         RuleSystem.SystemVariables treeVariables;
 
@@ -115,7 +103,7 @@ namespace Billboard
             landscape = Content.Load<Model>("landscape");
             treePositions = landscape.Tag as TreePosition;
 
-            if(treePositions == null)
+            if (treePositions == null)
                 treePositions = new TreePosition(new List<Vector3>());
 
             LoadTreeGenerators();
@@ -129,13 +117,14 @@ namespace Billboard
         {
             // Here we load all the tree profiles using the content manager
             // The tree profiles contain information about how to generate a tree
-            profiles = new TreeProfile[profileNames.Length];
-            for (int i = 0; i < profiles.Length; i++)
-            {
-                profiles[i] = Content.Load<TreeProfile>(String.Format(profileAssetFormat, profileNames[i]));
-            }
+            profiles = new TreeProfile[1];
 
-            profiles[0].Generator = TreeGenerator.ParseFromRuleSystem(rules);
+            profiles[0] = new TreeProfile(GraphicsDevice, TreeGenerator.ParseFromRuleSystem(rules),
+                Content.Load<Texture2D>("Textures/BirchBark"),
+                Content.Load<Texture2D>("Textures/BirchLeaf"),
+                Content.Load<Effect>("LTreeShaders/Trunk"),
+                Content.Load<Effect>("LTreeShaders/Leaves")
+                );
         }
 
         void InitRuleSystem()
@@ -155,17 +144,8 @@ namespace Billboard
             treeVariables.branchScale = 0.8f;
             treeVariables.pitchAngle = 20;
             treeVariables.pitchVariation = 0;
-
-            //mapping to make it easier to create the winform
-            treeVarMap = new Dictionary<string, EventValuePair>();
-            treeVarMap.Add("Bone Levels", new EventValuePair(new EventHandler(boneLevels_ValueChanged), treeVariables.boneLevels, 5));
-            treeVarMap.Add("Iterations", new EventValuePair(new EventHandler(iterations_ValueChanged), treeVariables.iterations, 20));
-            treeVarMap.Add("Branch Twist Angle", new EventValuePair(new EventHandler(twistAngle_ValueChanged), treeVariables.twistAngle, 360));
-            treeVarMap.Add("Branch Length", new EventValuePair(new EventHandler(branchLength_ValueChanged), treeVariables.branchLength, 2000));
-            treeVarMap.Add("Branch Thickness Scale", new EventValuePair(new EventHandler(branchScale_ValueChanged), treeVariables.branchScale, 1));
-            treeVarMap.Add("Pitch Angle", new EventValuePair(new EventHandler(pitchAngle_ValueChanged), treeVariables.pitchAngle, 360));
-
-            rules = new RuleSystem(ruleMap, treeVariables, "R");            
+            
+            rules = new RuleSystem(ruleMap, treeVariables, "R");
         }
 
         void NewTree()
@@ -179,7 +159,7 @@ namespace Billboard
         }
 
         #endregion
-        
+
         #region Form Controls
 
         private void CreateControls()
@@ -193,47 +173,77 @@ namespace Billboard
             CheckBox drawLeaves = new CheckBox();
             drawLeaves.Location = new Point(10, 10);
             drawLeaves.Text = "Display Leaves";
-            drawLeaves.Checked = EnableLeaves;            
+            drawLeaves.Checked = EnableLeaves;
             drawLeaves.CheckedChanged += new EventHandler(drawLeaves_CheckedChanged);
 
-            pnl.Controls.Add(drawLeaves);            
+            pnl.Controls.Add(drawLeaves);
 
-            int i = 1;
-            foreach (String key in treeVarMap.Keys)
-            {
-                NumericUpDown tempTreeVariableContainer = new NumericUpDown();
-                tempTreeVariableContainer.Location = new Point(10, 10 + 30 * i);
-                tempTreeVariableContainer.DecimalPlaces = 0;
-                EventValuePair pair = treeVarMap[key];
-                tempTreeVariableContainer.Width = 60;
-                tempTreeVariableContainer.Minimum = 0;
-                tempTreeVariableContainer.Maximum = (decimal)pair.maximum;
-                tempTreeVariableContainer.Value = (decimal)pair.value;
-                tempTreeVariableContainer.ValueChanged += pair.eventValue;
+            pnl.Controls.AddRange(new Control[]{
+                createInputForm(new Point(10, 40), 0, 0, 7, treeVariables.boneLevels, 1, new EventHandler(boneLevels_ValueChanged)), //amount of bones
+                createInputForm(new Point(10, 70), 0, 0, 10, treeVariables.iterations, 1, new EventHandler(iterations_ValueChanged)), //number of iterations
+                createInputForm(new Point(10, 100), 0, 0, 360, treeVariables.twistAngle, 1, new EventHandler(twistAngle_ValueChanged)), //angle of twisting per instruction
+                createInputForm(new Point(10, 130), 0, 0, 400, treeVariables.branchLength, 5, new EventHandler(branchLength_ValueChanged)), //branch length per instruction
+                createInputForm(new Point(10, 160), 2, 0, 2, treeVariables.branchScale, 0.05f, new EventHandler(branchScale_ValueChanged)), //scale of branch radius
+                createInputForm(new Point(10, 190), 0, 0, 360, treeVariables.pitchAngle, 1, new EventHandler(pitchAngle_ValueChanged)), //angle of pitching per instruction
+            });
 
-                Label tempLabel = new Label();
-                tempLabel.Text = key;
-                tempLabel.Location = new Point(tempTreeVariableContainer.Width + 10, 10 + 30 * i++);
-
-                pnl.Controls.Add(tempTreeVariableContainer);
-                pnl.Controls.Add(tempLabel);
-            }
+            pnl.Controls.AddRange(new Control[]{
+                CreateLabel(new Point(70, 40), "Bone Levels"),
+                CreateLabel(new Point(70, 70), "Iteration"),
+                CreateLabel(new Point(70, 100), "Twist Angle"),
+                CreateLabel(new Point(70, 130), "Branch Length"),
+                CreateLabel(new Point(70, 160), "Branch Scale"),
+                CreateLabel(new Point(70, 190), "Pitch Angle"),                
+            });
 
             winForm.Controls.Add(pnl);
+        }
+
+        NumericUpDown createInputForm(Point pos, int decimalPlaces, int minimum, int maximum, float currentValue, float increment, EventHandler e)
+        {
+            NumericUpDown inUpDown = new NumericUpDown();
+            inUpDown.Location = pos;
+
+            inUpDown.Maximum = (decimal)maximum;
+            inUpDown.Minimum = (decimal)minimum;
+            inUpDown.Value = (decimal)currentValue;
+            inUpDown.DecimalPlaces = decimalPlaces;
+            inUpDown.Increment = (decimal)increment;
+            inUpDown.ReadOnly = true;
+            inUpDown.Width = 60;
+            inUpDown.ValueChanged += e;
+            inUpDown.KeyDown += new KeyEventHandler(ignore_keyInput);
+
+            return inUpDown;
+        }
+
+        void ignore_keyInput(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+            e.Handled = true;
+        }
+
+        Label CreateLabel(Point pos, String name)
+        {
+            Label inputLabel = new Label();
+            inputLabel.Text = name;
+            inputLabel.Location = pos;
+
+            return inputLabel;
         }
 
         void boneLevels_ValueChanged(Object sender, EventArgs e)
         {
             NumericUpDown numSend = (NumericUpDown)sender;
             treeVariables.boneLevels = (int)numSend.Value;
-            RecalculateTree();
+            RebuildSystem();
         }
 
         void iterations_ValueChanged(Object sender, EventArgs e)
         {
             NumericUpDown numSend = (NumericUpDown)sender;
             treeVariables.iterations = (int)numSend.Value;
-            RecalculateTree();
+            RebuildSystem();
         }
 
         void twistAngle_ValueChanged(Object sender, EventArgs e)
@@ -265,13 +275,19 @@ namespace Billboard
         }
 
         void drawLeaves_CheckedChanged(Object sender, EventArgs e)
-        {            
+        {
             EnableLeaves = !EnableLeaves;
+        }
+
+        void RebuildSystem()
+        {
+            profiles[0].Generator = TreeGenerator.ParseFromRuleSystem(rules);
+            profiles[0].RecalculateSimpleTree(tree);
         }
 
         void RecalculateTree()
         {
-
+            profiles[0].RecalculateSimpleTree(tree);
         }
 
         #endregion
@@ -410,7 +426,7 @@ namespace Billboard
             IList<Vector3> treePos = treePositions.Trees;
             //Console.WriteLine(treePos.Count);
             foreach (Vector3 position in treePos)
-            {                
+            {
                 tree.DrawTrunk(Matrix.CreateScale(0.02f) * Matrix.CreateTranslation(position), view, projection);
             }
 
@@ -434,7 +450,7 @@ namespace Billboard
         /// Handles input for quitting the game.
         /// </summary>
         private void HandleInput()
-        {
+        {            
             currentKeyboardState = Keyboard.GetState();
             currentGamePadState = GamePad.GetState(PlayerIndex.One);
 
@@ -454,21 +470,32 @@ namespace Billboard
         {
             float time = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                if (!mousePressed)
+                {
+                    prevMousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                    mousePressed = true;
+                }
+                else
+                {
+                    Vector2 newMousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                    deltaMousePoint = newMousePos - prevMousePos;
+                }
+            }
+            else if (Mouse.GetState().LeftButton == ButtonState.Released)
+            {
+                deltaMousePoint = Vector2.Zero;
+                mousePressed = false;
+            }
+
             // Check for input to rotate the camera.
             float pitch = -currentGamePadState.ThumbSticks.Right.Y * time * 0.001f;
             float turn = -currentGamePadState.ThumbSticks.Right.X * time * 0.001f;
 
-            if (currentKeyboardState.IsKeyDown(Keys.Up))
-                pitch += time * 0.001f;
+            pitch += deltaMousePoint.Y * 0.001f;
 
-            if (currentKeyboardState.IsKeyDown(Keys.Down))
-                pitch -= time * 0.001f;
-
-            if (currentKeyboardState.IsKeyDown(Keys.Left))
-                turn += time * 0.001f;
-
-            if (currentKeyboardState.IsKeyDown(Keys.Right))
-                turn -= time * 0.001f;
+            turn -= deltaMousePoint.X * 0.001f;
 
             Vector3 cameraRight = Vector3.Cross(Vector3.Up, cameraFront);
             Vector3 flatFront = Vector3.Cross(cameraRight, Vector3.Up);
@@ -476,7 +503,7 @@ namespace Billboard
             Matrix pitchMatrix = Matrix.CreateFromAxisAngle(cameraRight, pitch);
             Matrix turnMatrix = Matrix.CreateFromAxisAngle(Vector3.Up, turn);
 
-            Vector3 tiltedFront = Vector3.TransformNormal(cameraFront, pitchMatrix * 
+            Vector3 tiltedFront = Vector3.TransformNormal(cameraFront, pitchMatrix *
                                                           turnMatrix);
 
             // Check angle so we cant flip over
@@ -488,7 +515,7 @@ namespace Billboard
             // Check for input to move the camera around.
             if (currentKeyboardState.IsKeyDown(Keys.W))
                 cameraPosition += cameraFront * time * 0.1f;
-            
+
             if (currentKeyboardState.IsKeyDown(Keys.S))
                 cameraPosition -= cameraFront * time * 0.1f;
 
