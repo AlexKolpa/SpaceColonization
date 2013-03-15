@@ -162,10 +162,10 @@ namespace BillboardPipeline
                             if (random.NextDouble() < TreeProbability)
                             {
                                 //To maintain the clearing around the central tree
-                                if(Math.Sqrt((position.X * position.X) + (position.Z * position.Z)) > 80)
+                             /*   if(Math.Sqrt((position.X * position.X) + (position.Z * position.Z)) > 80)
                                 {
                                     treePos.Add(position);
-                                }
+                                } */
                             }
                             else if (random.NextDouble() < CatProbability)
                             {
