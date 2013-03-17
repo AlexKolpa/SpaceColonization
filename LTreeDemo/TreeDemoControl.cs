@@ -23,6 +23,8 @@ namespace LTreeDemo
 {
     public class TreeDemoControl : GraphicsDeviceControl
     {
+        public const float MaxCamDistance = 1000f;        
+
         private ContentManager content;
         private int seed;
         private int profileIndex;
@@ -37,6 +39,7 @@ namespace LTreeDemo
         private BasicEffect groundEffect;
         private Matrix groundWorld = Matrix.CreateRotationX(-MathHelper.PiOver2);
         private RuleSystem rules;
+        private Sky skybox;
 
         public RuleSystem Rules 
         { 
@@ -161,21 +164,7 @@ namespace LTreeDemo
 
             InitRuleSystem();
 
-            // Load all trees in the Content/Trees folder
-            string[] textures = Directory.GetFiles("Content/Textures", "*.xnb", SearchOption.TopDirectoryOnly);
-            string[] shaders = Directory.GetFiles("Content/LTreeShaders", "*.xnb", SearchOption.TopDirectoryOnly);
-            string[] assetNames = new string[textures.Length + shaders.Length];
-            for(int i = 0; i < textures.Length; i++)
-            {
-                assetNames[i] = textures[i].Substring("Content/".Length, textures[i].Length - "Content/.xnb".Length);
-            }
-
-           
-            for(int i = 0; i < shaders.Length; i++)
-            {
-                assetNames[textures.Length + i] = shaders[i].Substring("Content/".Length, shaders[i].Length - "Content/.xnb".Length);
-            }
-
+            // Load a single profile
             Profiles.Add(new TreeProfile(GraphicsDevice,
                 TreeGenerator.ParseFromRuleSystem(Rules),
                 content.Load<Texture2D>("Textures\\BirchBark"),
@@ -201,6 +190,8 @@ namespace LTreeDemo
             Camera.Position = new Vector3(4000, 4000, 4000);
             Camera.Target = new Vector3(0, 2000, 0);
             Camera.AspectRatio = GraphicsDevice.Viewport.Width / (float)GraphicsDevice.Viewport.Height;
+
+            skybox = content.Load<Sky>("Skybox\\duskcloudy");
 
             CameraOrbitAngle = 0.0f;
             CameraPitchAngle = -10.0f;
@@ -259,6 +250,9 @@ namespace LTreeDemo
             Camera.SetThirdPersonView(CameraOrbitAngle, CameraPitchAngle, CameraDistance);
 
             GraphicsDevice.Clear(BackgroundColor);
+
+            // Draw the skybox
+            skybox.Draw(Camera.View, Camera.Projection);
 
             // Draw the ground
             if (EnableGround)

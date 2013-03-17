@@ -135,6 +135,7 @@
     <Compile Include="LTreeDemoGame.cs" />
     <Compile Include="Quad.cs" />
     <Compile Include="ServiceContainer.cs" />
+    <Compile Include="Sky.cs" />
     <Compile Include="TreeDemoControl.cs">
       <SubType>Component</SubType>
     </Compile>
