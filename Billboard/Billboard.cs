@@ -54,7 +54,8 @@ namespace Billboard
 
         TreeWindAnimator animator;
         WindStrengthSin wind;
-        
+
+        TextBox inputRules;
         RuleSystem rules;
         RuleSystem.SystemVariables treeVariables;
 
@@ -164,11 +165,12 @@ namespace Billboard
 
         private void CreateControls()
         {
-            Form winForm = Control.FromHandle(this.Window.Handle) as Form;
+            Form winForm = Control.FromHandle(this.Window.Handle) as Form;            
 
             Panel pnl = new Panel();
             pnl.Location = new Point(0, 0);
-            pnl.Size = new System.Drawing.Size(200, 250);
+            pnl.Dock = DockStyle.Left;
+            pnl.Size = new System.Drawing.Size(200, 500);
 
             CheckBox drawLeaves = new CheckBox();
             drawLeaves.Location = new Point(10, 10);
@@ -196,7 +198,47 @@ namespace Billboard
                 CreateLabel(new Point(70, 190), "Pitch Angle"),                
             });
 
+            inputRules = new TextBox();
+            inputRules.Multiline = true;
+            inputRules.Location = new Point(10, 300);
+            inputRules.Size = new System.Drawing.Size(180, 130);
+            inputRules.ScrollBars = ScrollBars.Both;
+            inputRules.AcceptsReturn = true;
+            inputRules.WordWrap = false;
+            inputRules.AcceptsTab = false;
+
+            UpdateRulesInputBox();
+
+            Button runRulesButton = new Button();
+            runRulesButton.Location = new Point(10, 450);
+            runRulesButton.Text = "Build Rules";
+            runRulesButton.Click += new EventHandler(build_rules_clicked);
+            pnl.Controls.Add(inputRules);
+
             winForm.Controls.Add(pnl);
+        }
+
+        void UpdateRulesInputBox()
+        {
+            String rulesString = "";
+
+            MultiMap<String, String> map = rules.Rules;
+
+            foreach (String key in map.Keys)
+            {
+                foreach (String value in map[key])
+                {
+                    rulesString += key;
+
+                    rulesString += " -> ";
+
+                    rulesString += value;
+
+                    rulesString += "\n";
+                }
+            }
+
+            inputRules.Text = rulesString;
         }
 
         NumericUpDown createInputForm(Point pos, int decimalPlaces, int minimum, int maximum, float currentValue, float increment, EventHandler e)
@@ -212,15 +254,8 @@ namespace Billboard
             inUpDown.ReadOnly = true;
             inUpDown.Width = 60;
             inUpDown.ValueChanged += e;
-            inUpDown.KeyDown += new KeyEventHandler(ignore_keyInput);
 
             return inUpDown;
-        }
-
-        void ignore_keyInput(object sender, KeyEventArgs e)
-        {
-            e.SuppressKeyPress = true;
-            e.Handled = true;
         }
 
         Label CreateLabel(Point pos, String name)
@@ -230,6 +265,11 @@ namespace Billboard
             inputLabel.Location = pos;
 
             return inputLabel;
+        }
+
+        void build_rules_clicked(Object sender, EventArgs e)
+        {
+
         }
 
         void boneLevels_ValueChanged(Object sender, EventArgs e)
@@ -277,6 +317,10 @@ namespace Billboard
         void drawLeaves_CheckedChanged(Object sender, EventArgs e)
         {
             EnableLeaves = !EnableLeaves;
+        }
+
+        void ParseNewRules(String root, TextBox box)
+        {
         }
 
         void RebuildSystem()
