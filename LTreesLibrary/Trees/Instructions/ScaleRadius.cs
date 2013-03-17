@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LTreesLibrary.Trees.Instructions
 {
-    unsafe public class ScaleRadius : TreeCrayonInstruction
+    public class ScaleRadius : TreeCrayonInstruction
     {
         RuleSystem.SystemVariables vars;
 

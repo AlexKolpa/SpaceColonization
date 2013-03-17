@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LTreesLibrary.Trees
 {
-    unsafe public interface TreeCrayonInstruction
+    public interface TreeCrayonInstruction
     {
         void Execute(TreeCrayon crayon, Random rnd);
     }

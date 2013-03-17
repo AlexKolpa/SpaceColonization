@@ -42,6 +42,20 @@ namespace LTreesLibrary.Trees
         {
             return map.ContainsKey(key);
         }
+
+        public List<KeyType> Keys
+        {
+            get
+            {
+                List<KeyType> list = new List<KeyType>();
+                foreach (KeyType key in map.Keys)
+                {
+                    list.Add(key);
+                }
+
+                return list;
+            }
+        }
 	
 
         public void Add(KeyType name, ValueType production)

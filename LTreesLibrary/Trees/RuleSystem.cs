@@ -7,6 +7,7 @@ namespace LTreesLibrary.Trees
 {
     public class RuleSystem
     {
+        private static HashSet<char> excludedChars = new HashSet<char>(new[] { ' ', '\t', '\n', '\r' });
         private MultiMap<string, string> rules;
 
         public MultiMap<String, String> Rules
@@ -64,6 +65,59 @@ namespace LTreesLibrary.Trees
 
             public float backwardLength;
             public float backwardVariation;
+        }
+
+        public static RuleSystem ParseRuleSystemFromString(String rules, SystemVariables inVars, String inRoot)
+        {
+            String[] splitRules = rules.Trim().Split('\n');
+            
+            MultiMap<string, string> ruleSet = new MultiMap<string, string>();
+
+
+            foreach (string rule in splitRules)
+            {                
+                String[] keyValuePair = rule.Split('=');
+                if (keyValuePair.Length != 2)
+                {
+                    throw new ArgumentException("Rule was not constructed properly");
+                }
+                string key = keyValuePair[0].Trim();
+                if (!isLegitimateKey(key))
+                {
+                    throw new ArgumentException("Keys can only be unicode letters");
+                }
+
+                string value = keyValuePair[1].Trim();
+                if (!isLegitimateValue(value))
+                {
+                    throw new ArgumentException("Values cant contain spaces");
+                }
+
+                //TODO: handle unknown call chars
+
+                ruleSet.Add(key, value);
+            }
+
+            return new RuleSystem(ruleSet, inVars, inRoot);
+        }
+
+        private static bool isLegitimateKey(string inKey)
+        {
+            if (inKey.Length > 1)
+                return false;
+
+            return Char.IsLetter(inKey, 0);
+        }
+
+        private static bool isLegitimateValue(string inValue)
+        {
+            for (int i = 0; i < inValue.Length; i++)
+            {
+                if (excludedChars.Contains(inValue[i]))
+                    return false;
+            }
+
+            return true;
         }
     }
 }

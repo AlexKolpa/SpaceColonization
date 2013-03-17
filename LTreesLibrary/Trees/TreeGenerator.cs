@@ -398,7 +398,7 @@ namespace LTreesLibrary.Trees
             return generator;
         }
 
-        unsafe private static void ParseInstructionsFromRules(string rule, List<TreeCrayonInstruction> instructions, MultiMap<string, ProductionStringPair> map, RuleSystem.SystemVariables variables)
+        private static void ParseInstructionsFromRules(string rule, List<TreeCrayonInstruction> instructions, MultiMap<string, ProductionStringPair> map, RuleSystem.SystemVariables variables)
         {
             for (int i = 0; i < rule.Length; i++)
             {
