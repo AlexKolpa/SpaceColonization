@@ -1,22 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
-    <ProjectGuid>{8AAAB1D0-6C1D-4F92-851B-56D4611A6D1E}</ProjectGuid>
+    <ProjectGuid>{F1EA20AF-D484-4DFE-9172-7C21941A748F}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LTreesLibrary</RootNamespace>
-    <AssemblyName>LTreesLibrary</AssemblyName>
+    <RootNamespace>LeafTool</RootNamespace>
+    <AssemblyName>LeafTool</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaCrossPlatformGroupID>9424f313-6a16-4c6d-aa60-bcc5b32eae53</XnaCrossPlatformGroupID>
+    <XnaCrossPlatformGroupID>cd3ce11c-8699-4e47-a5ce-b361ef165ea9</XnaCrossPlatformGroupID>
+    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <Thumbnail>GameThumbnail.png</Thumbnail>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <XnaUpgrade>
     </XnaUpgrade>
-    <XnaOutputType>Library</XnaOutputType>
+    <XnaOutputType>Game</XnaOutputType>
     <XnaProfile>Reach</XnaProfile>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileUpgradeFlags>
@@ -103,6 +105,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -114,51 +117,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LeafSprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Trees\CompositeTreeConstraints.cs" />
-    <Compile Include="Trees\ConstrainUndergroundBranches.cs" />
-    <Compile Include="Trees\Instructions\Align.cs" />
-    <Compile Include="Trees\Instructions\Backward.cs" />
-    <Compile Include="Trees\Instructions\Bone.cs" />
-    <Compile Include="Trees\Instructions\Call.cs" />
-    <Compile Include="Trees\Instructions\Child.cs" />
-    <Compile Include="Trees\Instructions\Forward.cs" />
-    <Compile Include="Trees\Instructions\Leaf.cs" />
-    <Compile Include="Trees\Instructions\Level.cs" />
-    <Compile Include="Trees\Instructions\Maybe.cs" />
-    <Compile Include="Trees\Instructions\Pitch.cs" />
-    <Compile Include="Trees\Instructions\Production.cs" />
-    <Compile Include="Trees\Instructions\RequireLevel.cs" />
-    <Compile Include="Trees\Instructions\Scale.cs" />
-    <Compile Include="Trees\Instructions\ScaleRadius.cs" />
-    <Compile Include="Trees\Instructions\TreeCrayonInstruction.cs" />
-    <Compile Include="Trees\Instructions\Twist.cs" />
-    <Compile Include="Trees\Instructions\Util.cs" />
-    <Compile Include="Trees\LeafVertex.cs" />
-    <Compile Include="Trees\MultiMap.cs" />
-    <Compile Include="Trees\RuleSystem.cs" />
-    <Compile Include="Trees\SimpleTree.cs" />
-    <Compile Include="Trees\TreeAnimationState.cs" />
-    <Compile Include="Trees\TreeBone.cs" />
-    <Compile Include="Trees\TreeBranch.cs" />
-    <Compile Include="Trees\TreeContraints.cs" />
-    <Compile Include="Trees\TreeCrayon.cs" />
-    <Compile Include="Trees\TreeGenerator.cs" />
-    <Compile Include="Trees\TreeLeaf.cs" />
-    <Compile Include="Trees\TreeLeafCloud.cs" />
-    <Compile Include="Trees\TreeLineMesh.cs" />
-    <Compile Include="Trees\TreeMesh.cs" />
-    <Compile Include="Trees\TreeProfile.cs" />
-    <Compile Include="Trees\TreeSkeleton.cs" />
-    <Compile Include="Trees\TreeVertex.cs" />
-    <Compile Include="Trees\Wind\TreeWindAnimator.cs" />
-    <Compile Include="Trees\Wind\WindSource.cs" />
-    <Compile Include="Trees\Wind\WindStrengthSin.cs" />
-    <Compile Include="Trees\XmlUtil.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="LeafToolGame.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Game.ico" />
+    <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content\Content.contentproj">
-      <Project>ad2a5284-a291-4f88-b06c-e32f0d39bb78</Project>
+      <Project>99f078ad-1650-49b6-b2b0-fe283cc26880</Project>
       <Visible>False</Visible>
     </NestedContentProject>
   </ItemGroup>
@@ -205,9 +175,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Content\LTreesLibraryContent.contentproj">
-      <Project>{AD2A5284-A291-4F88-B06C-E32F0D39BB78}</Project>
-      <Name>LTreesLibraryContent %28Content%29</Name>
+    <ProjectReference Include="Content\LeafToolContent.contentproj">
+      <Project>{99F078AD-1650-49B6-B2B0-FE283CC26880}</Project>
+      <Name>LeafToolContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>

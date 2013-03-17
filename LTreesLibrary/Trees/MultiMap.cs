@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using LTreesLibrary.Trees.Instructions;
@@ -34,20 +33,6 @@ namespace LTreesLibrary.Trees
             }
         }
 
-        public List<KeyType> Keys
-        {
-            get
-            {
-                List<KeyType> keys = new List<KeyType>();
-                foreach (KeyType key in map.Keys)
-                {
-                    keys.Add(key);
-                }
-
-                return keys;
-            }
-        }
-
         public List<ValueType> this[KeyType index]
         {
             get { return map[index]; }
@@ -57,7 +42,22 @@ namespace LTreesLibrary.Trees
         {
             return map.ContainsKey(key);
         }
-        
+
+        public List<KeyType> Keys
+        {
+            get
+            {
+                List<KeyType> list = new List<KeyType>();
+                foreach (KeyType key in map.Keys)
+                {
+                    list.Add(key);
+                }
+
+                return list;
+            }
+        }
+	
+
         public void Add(KeyType name, ValueType production)
         {
             List<ValueType> list;

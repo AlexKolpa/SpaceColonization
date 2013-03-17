@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace LTreesLibrary.Trees.Instructions
 {
-    unsafe public class Twist : TreeCrayonInstruction
+    public class Twist : TreeCrayonInstruction
     {
         private RuleSystem.SystemVariables vars;
         private int direction;

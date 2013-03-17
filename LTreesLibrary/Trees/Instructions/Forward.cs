@@ -24,14 +24,14 @@ namespace LTreesLibrary.Trees.Instructions
             get { return vars.branchLength; }
         }
 
-        unsafe public Forward(RuleSystem.SystemVariables inVars)
+        public Forward(RuleSystem.SystemVariables inVars)
         {
             this.vars = inVars;
         }
 
         #region TreeCrayonInstruction Members
 
-        unsafe public void Execute(TreeCrayon crayon, Random rnd)
+        public void Execute(TreeCrayon crayon, Random rnd)
         {
             crayon.Forward(Distance + Variation * ((float)rnd.NextDouble() * 2 - 1), RadiusScale);
         }
