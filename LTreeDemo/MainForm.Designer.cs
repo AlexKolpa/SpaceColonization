@@ -73,6 +73,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.xnaControl = new LTreeDemo.TreeDemoControl();
+            this.label15 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seedBox)).BeginInit();
@@ -373,6 +374,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label15);
             this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.textBox2);
             this.tabPage2.Controls.Add(this.label13);
@@ -403,7 +405,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(136, 559);
+            this.button1.Location = new System.Drawing.Point(138, 559);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 25;
@@ -641,6 +643,17 @@
             this.xnaControl.TabIndex = 1;
             this.xnaControl.Text = "xnaControl";
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.Red;
+            this.label15.Location = new System.Drawing.Point(9, 559);
+            this.label15.MaximumSize = new System.Drawing.Size(100, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(97, 26);
+            this.label15.TabIndex = 26;
+            this.label15.Text = "Error parsing rules. Rules reset.";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -722,6 +735,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label15;
     }
 }
 

@@ -24,6 +24,8 @@ namespace LTreeDemo
         public MainForm()
         {
             InitializeComponent();
+
+            tabPage2.Controls.Remove(label15);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -131,7 +133,18 @@ namespace LTreeDemo
 
         private void button1_Click(object sender, EventArgs e)
         {
-            xnaControl.Rules = RuleSystem.ParseRuleSystemFromString("R=" + textBox1.Text + "\n" + textBox2.Text, xnaControl.TreeVariables, "R");
+            RuleSystem rules;
+            try
+            {
+                rules = RuleSystem.ParseRuleSystemFromString("R=" + textBox1.Text + "\n" + textBox2.Text, xnaControl.TreeVariables, "R");
+            }
+            catch (ArgumentException ex)
+            {
+                tabPage2.Controls.Add(label15);
+                return;
+            }
+
+            xnaControl.Rules = rules;
         }
 
         void fill_rulesystem()
