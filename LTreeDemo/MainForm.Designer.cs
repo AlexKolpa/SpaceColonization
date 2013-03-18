@@ -53,10 +53,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.twistangle = new System.Windows.Forms.NumericUpDown();
@@ -73,7 +72,8 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.xnaControl = new LTreeDemo.TreeDemoControl();
-            this.label15 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seedBox)).BeginInit();
@@ -374,11 +374,11 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.richTextBox2);
+            this.tabPage2.Controls.Add(this.richTextBox1);
             this.tabPage2.Controls.Add(this.label15);
             this.tabPage2.Controls.Add(this.button1);
-            this.tabPage2.Controls.Add(this.textBox2);
             this.tabPage2.Controls.Add(this.label13);
-            this.tabPage2.Controls.Add(this.textBox1);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.twistangle);
@@ -403,6 +403,17 @@
             this.tabPage2.Text = "Advanced";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.Red;
+            this.label15.Location = new System.Drawing.Point(9, 559);
+            this.label15.MaximumSize = new System.Drawing.Size(100, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(97, 26);
+            this.label15.TabIndex = 26;
+            this.label15.Text = "Error parsing rules. Rules reset.";
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(138, 559);
@@ -413,14 +424,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(9, 369);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(204, 184);
-            this.textBox2.TabIndex = 24;
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -429,13 +432,6 @@
             this.label13.Size = new System.Drawing.Size(91, 13);
             this.label13.TabIndex = 23;
             this.label13.Text = "reproduction rules";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(9, 325);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(136, 20);
-            this.textBox1.TabIndex = 22;
             // 
             // label11
             // 
@@ -643,16 +639,22 @@
             this.xnaControl.TabIndex = 1;
             this.xnaControl.Text = "xnaControl";
             // 
-            // label15
+            // richTextBox1
             // 
-            this.label15.AutoSize = true;
-            this.label15.ForeColor = System.Drawing.Color.Red;
-            this.label15.Location = new System.Drawing.Point(9, 559);
-            this.label15.MaximumSize = new System.Drawing.Size(100, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(97, 26);
-            this.label15.TabIndex = 26;
-            this.label15.Text = "Error parsing rules. Rules reset.";
+            this.richTextBox1.Location = new System.Drawing.Point(12, 326);
+            this.richTextBox1.Multiline = false;
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(198, 23);
+            this.richTextBox1.TabIndex = 27;
+            this.richTextBox1.Text = "";
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(12, 369);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(198, 187);
+            this.richTextBox2.TabIndex = 28;
+            this.richTextBox2.Text = "";
             // 
             // MainForm
             // 
@@ -731,11 +733,11 @@
         private System.Windows.Forms.NumericUpDown iterations;
         private TreeDemoControl xnaControl;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
