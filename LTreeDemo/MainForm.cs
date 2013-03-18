@@ -76,6 +76,11 @@ namespace LTreeDemo
         Random random = new Random();
         private void randomButton_Click(object sender, EventArgs e)
         {
+            if (tabPage2.Controls.Contains(label15))
+            {
+                fill_rulesystem();
+                tabPage2.Controls.Remove(label15);
+            }
             seedBox.Value = random.Next((int)seedBox.Maximum);
         }
 
@@ -133,6 +138,7 @@ namespace LTreeDemo
 
         private void button1_Click(object sender, EventArgs e)
         {
+            tabPage2.Controls.Remove(label15);
             RuleSystem rules;
             try
             {
