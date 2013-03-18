@@ -26,6 +26,12 @@ namespace LTreeDemo
             InitializeComponent();
 
             tabPage2.Controls.Remove(label15);
+
+            richTextBox1.SelectionChanged += new EventHandler(rules_selectionChanged);
+            richTextBox2.SelectionChanged += new EventHandler(rules_selectionChanged);
+
+            richTextBox1.SelectionColor = Color.Red;
+            richTextBox2.SelectionColor = Color.Red;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -142,7 +148,7 @@ namespace LTreeDemo
             RuleSystem rules;
             try
             {
-                rules = RuleSystem.ParseRuleSystemFromString("R=" + textBox1.Text + "\n" + textBox2.Text, xnaControl.TreeVariables, "R");
+                rules = RuleSystem.ParseRuleSystemFromString("R=" + richTextBox1.Text + "\n" + richTextBox2.Text, xnaControl.TreeVariables, "R");
             }
             catch (ArgumentException ex)
             {
@@ -158,7 +164,7 @@ namespace LTreeDemo
             MultiMap<string, string> rules = xnaControl.Rules.Rules;
 
             //set root rule
-            textBox1.Text = rules[xnaControl.Rules.Root][0];
+            richTextBox1.Text = rules[xnaControl.Rules.Root][0];
 
             //build string for rule system
             StringBuilder sb = new StringBuilder();
@@ -175,7 +181,13 @@ namespace LTreeDemo
                 }
             }
 
-            textBox2.Text = sb.ToString();
+            richTextBox2.Text = sb.ToString();
+        }
+
+        void rules_selectionChanged(object sender, EventArgs e)
+        {
+            RichTextBox textBox = (RichTextBox)sender;
+            Console.WriteLine("Selection at: " + textBox.SelectionStart);
         }
     }
 }
