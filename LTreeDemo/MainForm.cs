@@ -27,11 +27,19 @@ namespace LTreeDemo
 
             tabPage2.Controls.Remove(label15);
 
+<<<<<<< HEAD
             //richTextBox1.SelectionChanged += new EventHandler(rules_selectionChanged);
             //richTextBox2.SelectionChanged += new EventHandler(rules_selectionChanged);
 
             //richTextBox1.SelectionColor = Color.Red;
             //richTextBox2.SelectionColor = Color.Red;
+=======
+            richTextBox1.SelectionChanged += new EventHandler(rules_selectionChanged);
+            richTextBox2.SelectionChanged += new EventHandler(rules_selectionChanged);
+
+            richTextBox1.SelectionColor = Color.Red;
+            richTextBox2.SelectionColor = Color.Red;
+>>>>>>> da3b5a26b2ec0f8f024c64b6fd32cd6c1f624f0a
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -182,6 +190,15 @@ namespace LTreeDemo
             }
 
             richTextBox2.Text = sb.ToString();
+<<<<<<< HEAD
+=======
+        }
+
+        void rules_selectionChanged(object sender, EventArgs e)
+        {
+            RichTextBox textBox = (RichTextBox)sender;
+            Console.WriteLine("Selection at: " + textBox.SelectionStart);
+>>>>>>> da3b5a26b2ec0f8f024c64b6fd32cd6c1f624f0a
         }
 
         /*void rules_selectionChanged(object sender, EventArgs e)
