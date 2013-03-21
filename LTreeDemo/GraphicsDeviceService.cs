@@ -58,8 +58,8 @@ namespace LTreeDemo
 			parameters.BackBufferFormat = SurfaceFormat.Color;
 			parameters.DepthStencilFormat = DepthFormat.Depth24;
 			parameters.DeviceWindowHandle = windowHandle;
-			parameters.PresentationInterval = PresentInterval.Immediate;
-			parameters.MultiSampleCount = 1;
+			parameters.PresentationInterval = PresentInterval.Immediate;            
+			parameters.MultiSampleCount = 4;
 			parameters.IsFullScreen = false;
 
             graphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter,

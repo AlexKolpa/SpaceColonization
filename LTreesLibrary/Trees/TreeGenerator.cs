@@ -32,6 +32,7 @@ namespace LTreesLibrary.Trees
         private CompositeTreeConstraints constraints = new CompositeTreeConstraints();
         private float textureHeight = 512.0f;
         private float textureHeightVariation = 0.0f;
+        private float branchWidth = 128f;
 
         /// <summary>
         /// Variation of the texture height. The range of possible values are <code>TextureHeight - var</code> to <code>TextureHeight + var</code>.
@@ -58,6 +59,12 @@ namespace LTreesLibrary.Trees
         {
             get { return maxLevel; }
             set { maxLevel = value; }
+        }
+
+        public float BranchWidth
+        {
+            get { return branchWidth; }
+            set { branchWidth = value; }
         }
 
         /// <summary>
@@ -106,6 +113,7 @@ namespace LTreesLibrary.Trees
                 throw new InvalidOperationException("TreeGenerator has not been initialized. Must set Root and MaxLevel before generating a tree.");
 
             TreeCrayon crayon = new TreeCrayon();
+            crayon.BranchWidth = branchWidth;
             crayon.Level = maxLevel;
             crayon.BoneLevels = BoneLevels;
             crayon.Constraints = constraints;
@@ -377,9 +385,9 @@ namespace LTreesLibrary.Trees
             //TODO: opbouwen ProductionStringPair
             MultiMap<string, ProductionStringPair> map = new MultiMap<string, ProductionStringPair>();
 
-            foreach (string key in system.Rules.Map.Keys)
+            foreach (string key in system.RuleMap.Map.Keys)
             {
-                foreach (string value in system.Rules[key])
+                foreach (string value in system.RuleMap[key])
                     map.Add(key, new ProductionStringPair(new Production(), key, value));
             }
 

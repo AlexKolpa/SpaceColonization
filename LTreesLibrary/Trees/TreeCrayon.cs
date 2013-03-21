@@ -44,9 +44,11 @@ namespace LTreesLibrary.Trees
         private List<int> boneEndings = new List<int>(); // Map from bone index to branch where it was created
 
         private TreeContraints constraints;
-
+                
         private int boneLevels = 3;
         private const int MaxBones = 20; // Should match the number in Trunk.fx and Leaves.fx
+
+        public float BranchWidth { get; set; }
 
         /// <summary>
         /// How long a chain of bones is allowed to be. Default is 3.
@@ -356,7 +358,7 @@ namespace LTreesLibrary.Trees
         private float GetRadiusAt(int parentIndex, float f)
         {
             if (parentIndex == -1)
-                return 128.0f;
+                return BranchWidth;
 
             TreeBranch branch = skeleton.Branches[parentIndex];
 

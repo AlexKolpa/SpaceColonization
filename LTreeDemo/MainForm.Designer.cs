@@ -53,41 +53,47 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label15 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.branchscale = new System.Windows.Forms.TrackBar();
+            this.branchwidth = new System.Windows.Forms.TrackBar();
+            this.twistangle = new System.Windows.Forms.TrackBar();
+            this.pitchangle = new System.Windows.Forms.TrackBar();
+            this.branchlength = new System.Windows.Forms.TrackBar();
+            this.iterations = new System.Windows.Forms.TrackBar();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.error = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.twistangle = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
-            this.pitchangle = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.branchscale = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.branchlength = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.iterations = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.bonelevels = new System.Windows.Forms.NumericUpDown();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.xnaControl = new LTreeDemo.TreeDemoControl();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seedBox)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.branchscale)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.branchwidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.twistangle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pitchangle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.branchscale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchlength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iterations)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bonelevels)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -362,6 +368,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label16);
+            this.tabPage1.Controls.Add(this.trackBar2);
+            this.tabPage1.Controls.Add(this.label15);
+            this.tabPage1.Controls.Add(this.trackBar1);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.profileBox);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -374,24 +384,24 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label2);
+            this.tabPage2.Controls.Add(this.branchscale);
+            this.tabPage2.Controls.Add(this.branchwidth);
+            this.tabPage2.Controls.Add(this.twistangle);
+            this.tabPage2.Controls.Add(this.pitchangle);
+            this.tabPage2.Controls.Add(this.branchlength);
+            this.tabPage2.Controls.Add(this.iterations);
             this.tabPage2.Controls.Add(this.richTextBox2);
             this.tabPage2.Controls.Add(this.richTextBox1);
-            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.error);
             this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.twistangle);
             this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.pitchangle);
             this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.branchscale);
             this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.branchlength);
             this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.iterations);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.bonelevels);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.seedBox);
             this.tabPage2.Controls.Add(this.randomButton);
@@ -403,23 +413,126 @@
             this.tabPage2.Text = "Advanced";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label15
+            // label2
             // 
-            this.label15.AutoSize = true;
-            this.label15.ForeColor = System.Drawing.Color.Red;
-            this.label15.Location = new System.Drawing.Point(9, 559);
-            this.label15.MaximumSize = new System.Drawing.Size(100, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(97, 26);
-            this.label15.TabIndex = 26;
-            this.label15.Text = "Error parsing rules. Rules reset.";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 227);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 13);
+            this.label2.TabIndex = 35;
+            this.label2.Text = "branch width";
+            // 
+            // branchscale
+            // 
+            this.branchscale.AutoSize = false;
+            this.branchscale.BackColor = System.Drawing.SystemColors.Window;
+            this.branchscale.Location = new System.Drawing.Point(9, 282);
+            this.branchscale.Name = "branchscale";
+            this.branchscale.Size = new System.Drawing.Size(198, 20);
+            this.branchscale.TabIndex = 34;
+            this.branchscale.Value = 1;
+            // 
+            // branchwidth
+            // 
+            this.branchwidth.AutoSize = false;
+            this.branchwidth.BackColor = System.Drawing.SystemColors.Window;
+            this.branchwidth.LargeChange = 50;
+            this.branchwidth.Location = new System.Drawing.Point(9, 243);
+            this.branchwidth.Maximum = 200;
+            this.branchwidth.Minimum = 50;
+            this.branchwidth.Name = "branchwidth";
+            this.branchwidth.Size = new System.Drawing.Size(198, 20);
+            this.branchwidth.SmallChange = 10;
+            this.branchwidth.TabIndex = 33;
+            this.branchwidth.TickFrequency = 10;
+            this.branchwidth.Value = 50;
+            // 
+            // twistangle
+            // 
+            this.twistangle.AutoSize = false;
+            this.twistangle.BackColor = System.Drawing.SystemColors.Window;
+            this.twistangle.LargeChange = 90;
+            this.twistangle.Location = new System.Drawing.Point(12, 204);
+            this.twistangle.Maximum = 360;
+            this.twistangle.Name = "twistangle";
+            this.twistangle.Size = new System.Drawing.Size(198, 20);
+            this.twistangle.SmallChange = 30;
+            this.twistangle.TabIndex = 32;
+            this.twistangle.TickFrequency = 30;
+            // 
+            // pitchangle
+            // 
+            this.pitchangle.AutoSize = false;
+            this.pitchangle.BackColor = System.Drawing.SystemColors.Window;
+            this.pitchangle.LargeChange = 30;
+            this.pitchangle.Location = new System.Drawing.Point(12, 165);
+            this.pitchangle.Maximum = 180;
+            this.pitchangle.Name = "pitchangle";
+            this.pitchangle.Size = new System.Drawing.Size(198, 20);
+            this.pitchangle.SmallChange = 5;
+            this.pitchangle.TabIndex = 31;
+            this.pitchangle.TickFrequency = 30;
+            // 
+            // branchlength
+            // 
+            this.branchlength.AutoSize = false;
+            this.branchlength.BackColor = System.Drawing.SystemColors.Window;
+            this.branchlength.LargeChange = 50;
+            this.branchlength.Location = new System.Drawing.Point(12, 126);
+            this.branchlength.Maximum = 400;
+            this.branchlength.Minimum = 20;
+            this.branchlength.Name = "branchlength";
+            this.branchlength.Size = new System.Drawing.Size(198, 20);
+            this.branchlength.SmallChange = 20;
+            this.branchlength.TabIndex = 30;
+            this.branchlength.TickFrequency = 20;
+            this.branchlength.Value = 20;
+            // 
+            // iterations
+            // 
+            this.iterations.AutoSize = false;
+            this.iterations.BackColor = System.Drawing.SystemColors.Window;
+            this.iterations.Location = new System.Drawing.Point(12, 87);
+            this.iterations.Minimum = 1;
+            this.iterations.Name = "iterations";
+            this.iterations.Size = new System.Drawing.Size(198, 20);
+            this.iterations.TabIndex = 29;
+            this.iterations.Value = 1;
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(12, 369);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(198, 187);
+            this.richTextBox2.TabIndex = 36;
+            this.richTextBox2.Text = "";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(12, 326);
+            this.richTextBox1.Multiline = false;
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(198, 23);
+            this.richTextBox1.TabIndex = 35;
+            this.richTextBox1.Text = "";
+            // 
+            // error
+            // 
+            this.error.AutoSize = true;
+            this.error.ForeColor = System.Drawing.Color.Red;
+            this.error.Location = new System.Drawing.Point(9, 559);
+            this.error.MaximumSize = new System.Drawing.Size(100, 0);
+            this.error.Name = "error";
+            this.error.Size = new System.Drawing.Size(97, 26);
+            this.error.TabIndex = 26;
+            this.error.Text = "Error parsing rules. Rules reset.";
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(138, 559);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 25;
+            this.button1.TabIndex = 38;
             this.button1.Text = "rebuild";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -436,7 +549,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 309);
+            this.label11.Location = new System.Drawing.Point(9, 310);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(45, 13);
             this.label11.TabIndex = 21;
@@ -445,74 +558,29 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 227);
+            this.label9.Location = new System.Drawing.Point(9, 188);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(57, 13);
             this.label9.TabIndex = 20;
             this.label9.Text = "twist angle";
             // 
-            // twistangle
-            // 
-            this.twistangle.Location = new System.Drawing.Point(12, 243);
-            this.twistangle.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.twistangle.Name = "twistangle";
-            this.twistangle.Size = new System.Drawing.Size(93, 20);
-            this.twistangle.TabIndex = 19;
-            this.twistangle.ValueChanged += new System.EventHandler(this.twistangle_valueChanged);
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 188);
+            this.label7.Location = new System.Drawing.Point(9, 149);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 13);
             this.label7.TabIndex = 18;
             this.label7.Text = "pitch angle";
             // 
-            // pitchangle
-            // 
-            this.pitchangle.Location = new System.Drawing.Point(12, 204);
-            this.pitchangle.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.pitchangle.Name = "pitchangle";
-            this.pitchangle.Size = new System.Drawing.Size(93, 20);
-            this.pitchangle.TabIndex = 17;
-            this.pitchangle.ValueChanged += new System.EventHandler(this.pitchangle_valueChanged);
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 149);
+            this.label6.Location = new System.Drawing.Point(9, 266);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(68, 13);
             this.label6.TabIndex = 16;
             this.label6.Text = "branch scale";
-            // 
-            // branchscale
-            // 
-            this.branchscale.DecimalPlaces = 2;
-            this.branchscale.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            131072});
-            this.branchscale.Location = new System.Drawing.Point(12, 165);
-            this.branchscale.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.branchscale.Name = "branchscale";
-            this.branchscale.Size = new System.Drawing.Size(93, 20);
-            this.branchscale.TabIndex = 15;
-            this.branchscale.ValueChanged += new System.EventHandler(this.branchscale_valueChanged);
             // 
             // label5
             // 
@@ -523,34 +591,6 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "branch length";
             // 
-            // branchlength
-            // 
-            this.branchlength.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.branchlength.Location = new System.Drawing.Point(12, 126);
-            this.branchlength.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.branchlength.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.branchlength.Name = "branchlength";
-            this.branchlength.Size = new System.Drawing.Size(93, 20);
-            this.branchlength.TabIndex = 13;
-            this.branchlength.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.branchlength.ValueChanged += new System.EventHandler(this.branchlength_valueChanged);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -559,41 +599,6 @@
             this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = "iterations";
-            // 
-            // iterations
-            // 
-            this.iterations.Location = new System.Drawing.Point(12, 87);
-            this.iterations.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.iterations.Name = "iterations";
-            this.iterations.Size = new System.Drawing.Size(93, 20);
-            this.iterations.TabIndex = 11;
-            this.iterations.ValueChanged += new System.EventHandler(this.iterations_valueChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 266);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "bone levels";
-            // 
-            // bonelevels
-            // 
-            this.bonelevels.Location = new System.Drawing.Point(12, 282);
-            this.bonelevels.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.bonelevels.Name = "bonelevels";
-            this.bonelevels.Size = new System.Drawing.Size(93, 20);
-            this.bonelevels.TabIndex = 9;
-            this.bonelevels.ValueChanged += new System.EventHandler(this.bonelevels_valueChanged);
             // 
             // tabPage3
             // 
@@ -639,30 +644,50 @@
             this.xnaControl.TabIndex = 1;
             this.xnaControl.Text = "xnaControl";
             // 
-            // richTextBox1
+            // trackBar1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 326);
-            this.richTextBox1.Multiline = false;
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(198, 23);
-            this.richTextBox1.TabIndex = 27;
-            this.richTextBox1.Text = "";
+            this.trackBar1.BackColor = System.Drawing.SystemColors.Window;
+            this.trackBar1.Location = new System.Drawing.Point(7, 47);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(45, 191);
+            this.trackBar1.TabIndex = 2;
             // 
-            // richTextBox2
+            // label15
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(12, 369);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(198, 187);
-            this.richTextBox2.TabIndex = 28;
-            this.richTextBox2.Text = "";
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 245);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(26, 13);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "Age";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            this.label16.Location = new System.Drawing.Point(99, 244);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(30, 13);
+            this.label16.TabIndex = 5;
+            this.label16.Text = "Light";
+            // 
+            // trackBar2
+            // 
+            this.trackBar2.BackColor = System.Drawing.SystemColors.Window;
+            this.trackBar2.Location = new System.Drawing.Point(99, 46);
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar2.Size = new System.Drawing.Size(45, 191);
+            this.trackBar2.TabIndex = 4;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(876, 616);
-            this.Controls.Add(this.xnaControl);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.xnaControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -678,14 +703,16 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.branchscale)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.branchwidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.twistangle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pitchangle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.branchscale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchlength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iterations)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bonelevels)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -719,25 +746,29 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown bonelevels;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown twistangle;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown pitchangle;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown branchscale;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown branchlength;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown iterations;
         private TreeDemoControl xnaControl;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label error;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.TrackBar twistangle;
+        private System.Windows.Forms.TrackBar pitchangle;
+        private System.Windows.Forms.TrackBar branchscale;
+        private System.Windows.Forms.TrackBar branchlength;
+        private System.Windows.Forms.TrackBar iterations;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TrackBar branchwidth;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TrackBar trackBar1;
     }
 }
 

@@ -159,7 +159,8 @@ namespace LTreeDemo
 		}
         
         protected override void Initialize()
-        {
+        {            
+
             content = new ContentManager(Services, "Content");
 
             InitRuleSystem();
@@ -172,7 +173,7 @@ namespace LTreeDemo
                 content.Load<Effect>("LTreeShaders\\Trunk"),
                 content.Load<Effect>("LTreeShaders\\Leaves")));
             ProfileNames.Add("Birch");
-
+        
             profileIndex = 0;
 
             // Create the wind animator
@@ -219,15 +220,16 @@ namespace LTreeDemo
             ruleMap.Add("A", "ff[>++Al][--Al]>>>A");
 
             TreeVariables = new RuleSystem.SystemVariables();
-            TreeVariables.boneLevels = 3;
+            TreeVariables.boneLevels = 1;
             TreeVariables.iterations = 5;
             TreeVariables.twistAngle = 0;
-            TreeVariables.twistVariation = 360;
-            TreeVariables.branchLength = 260;
+            TreeVariables.twistVariation = 360f;
+            TreeVariables.branchLength = 260f;
             TreeVariables.lengthVariation = 0;
             TreeVariables.branchScale = 0.8f;
-            TreeVariables.pitchAngle = 20;
+            TreeVariables.pitchAngle = 20f;
             TreeVariables.pitchVariation = 0;
+            TreeVariables.branchWidth = 128f;
 
             rules = new RuleSystem(ruleMap, TreeVariables, "R");
         }
@@ -392,40 +394,41 @@ namespace LTreeDemo
             // One 'notch' on the mouse wheel seems to be 120.0f in e.Delta
             CameraDistance *= (float)Math.Exp(-e.Delta / 120.0f / 10.0f);
         }
-
-        public void bonelevels_valueChanged(NumericUpDown send)
+        
+        public void iterations_valueChanged(object send, EventArgs e)
         {
-            TreeVariables.boneLevels = (int)send.Value;
+            TreeVariables.iterations = (int)((TrackBar)send).Value;
             RebuildSystem();
         }
 
-        public void iterations_valueChanged(NumericUpDown send)
+        public void twistangle_valueChanged(object send, EventArgs e)
         {
-            TreeVariables.iterations = (int)send.Value;
-            RebuildSystem();
-        }
-
-        public void twistangle_valueChanged(NumericUpDown send)
-        {
-            TreeVariables.twistAngle = (float)send.Value;
+            TreeVariables.twistAngle = (float)((TrackBar)send).Value;
             RecalculateTree();
         }
 
-        public void pitchangle_valueChanged(NumericUpDown send)
+        public void pitchangle_valueChanged(object send, EventArgs e)
         {
-            TreeVariables.pitchAngle = (float)send.Value;
+            TreeVariables.pitchAngle = (float)((TrackBar)send).Value;
             RecalculateTree();
         }
 
-        public void branchlength_valueChanged(NumericUpDown send)
+        public void branchlength_valueChanged(object send, EventArgs e)
         {
-            TreeVariables.branchLength = (float)send.Value;
+            TreeVariables.branchLength = (float)((TrackBar)send).Value;
             RecalculateTree();
         }
 
-        public void branchscale_valueChanged(NumericUpDown send)
+        public void branchscale_valueChanged(object send, EventArgs e)
         {
-            TreeVariables.branchScale = (float)send.Value;
+            TreeVariables.branchScale = ((TrackBar)send).Value/50f + 0.8f;
+            RecalculateTree();
+        }
+
+        public void branchwidth_valueChanged(object send, EventArgs e)
+        {
+            TreeVariables.branchWidth = ((TrackBar)send).Value;
+            CurrentProfile.Generator.BranchWidth = TreeVariables.branchWidth;
             RecalculateTree();
         }
 

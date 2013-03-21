@@ -7,10 +7,12 @@ namespace LTreesLibrary.Trees
 {
     public class RuleSystem
     {
-        private static HashSet<char> excludedChars = new HashSet<char>(new[] { ' ', '\t', '\n', '\r' });
+        private static HashSet<char> excludedChars = new HashSet<char>(new[] 
+            { ' ', '\t', '\n', '\r', '^', '#', '!', '~','@','$','%','&','*','\\','|','"','\'',':',';','.',',','?','/'}
+            );
         private MultiMap<string, string> rules;
 
-        public MultiMap<String, String> Rules
+        public MultiMap<String, String> RuleMap
         {
             get { return rules; }
             set { rules = value; }
@@ -65,6 +67,8 @@ namespace LTreesLibrary.Trees
 
             public float backwardLength;
             public float backwardVariation;
+
+            public float branchWidth;
         }
 
         public static RuleSystem ParseRuleSystemFromString(String rules, SystemVariables inVars, String inRoot)
@@ -90,7 +94,7 @@ namespace LTreesLibrary.Trees
                 string value = keyValuePair[1].Trim();
                 if (!isLegitimateValue(value))
                 {
-                    throw new ArgumentException("Values cant contain spaces");
+                    throw new ArgumentException("Illegitimate characters in a rule");
                 }
 
                 //TODO: handle unknown call chars

@@ -25,21 +25,14 @@ namespace LTreeDemo
         {
             InitializeComponent();
 
-            tabPage2.Controls.Remove(label15);
+            error.Visible = false;
 
-<<<<<<< HEAD
-            //richTextBox1.SelectionChanged += new EventHandler(rules_selectionChanged);
-            //richTextBox2.SelectionChanged += new EventHandler(rules_selectionChanged);
-
-            //richTextBox1.SelectionColor = Color.Red;
-            //richTextBox2.SelectionColor = Color.Red;
-=======
-            richTextBox1.SelectionChanged += new EventHandler(rules_selectionChanged);
-            richTextBox2.SelectionChanged += new EventHandler(rules_selectionChanged);
-
-            richTextBox1.SelectionColor = Color.Red;
-            richTextBox2.SelectionColor = Color.Red;
->>>>>>> da3b5a26b2ec0f8f024c64b6fd32cd6c1f624f0a
+            iterations.Scroll += new EventHandler(xnaControl.iterations_valueChanged);
+            branchlength.Scroll += new EventHandler(xnaControl.branchlength_valueChanged);
+            branchscale.Scroll += new EventHandler(xnaControl.branchscale_valueChanged);
+            twistangle.Scroll += new EventHandler(xnaControl.twistangle_valueChanged);
+            pitchangle.Scroll += new EventHandler(xnaControl.pitchangle_valueChanged);
+            branchwidth.Scroll += new EventHandler(xnaControl.branchwidth_valueChanged);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -71,13 +64,14 @@ namespace LTreeDemo
             xnaControl.EnableWind = windBox.Checked;
             xnaControl.EnableBones = bonesBox.Checked;
             xnaControl.EnableGround = groundBox.Checked;
-
-            bonelevels.Value = xnaControl.TreeVariables.boneLevels;
+                        
+            iterations.Value = xnaControl.TreeVariables.boneLevels;
             iterations.Value = xnaControl.TreeVariables.iterations;
-            branchlength.Value = (decimal)xnaControl.TreeVariables.branchLength;
-            branchscale.Value = (decimal)xnaControl.TreeVariables.branchScale;
-            twistangle.Value = (decimal)xnaControl.TreeVariables.twistAngle;
-            pitchangle.Value = (decimal)xnaControl.TreeVariables.pitchAngle;
+            branchlength.Value = (int)xnaControl.TreeVariables.branchLength;
+            branchscale.Value = (int)xnaControl.TreeVariables.branchScale;
+            twistangle.Value = (int)xnaControl.TreeVariables.twistAngle;
+            pitchangle.Value = (int)xnaControl.TreeVariables.pitchAngle;
+            branchwidth.Value = (int)xnaControl.TreeVariables.branchWidth;
 
             fill_rulesystem();
         }
@@ -90,10 +84,10 @@ namespace LTreeDemo
         Random random = new Random();
         private void randomButton_Click(object sender, EventArgs e)
         {
-            if (tabPage2.Controls.Contains(label15))
+            if (tabPage2.Controls.Contains(error))
             {
                 fill_rulesystem();
-                tabPage2.Controls.Remove(label15);
+                tabPage2.Controls.Remove(error);
             }
             seedBox.Value = random.Next((int)seedBox.Maximum);
         }
@@ -118,41 +112,11 @@ namespace LTreeDemo
                 default:
                     return true; // Just use this as default
             }
-        }
-
-        private void bonelevels_valueChanged(object sender, EventArgs e)
-        {
-            xnaControl.bonelevels_valueChanged((NumericUpDown)sender);
-        }
-
-        private void iterations_valueChanged(object sender, EventArgs e)
-        {
-            xnaControl.iterations_valueChanged((NumericUpDown)sender);
-        }
-
-        private void branchlength_valueChanged(object sender, EventArgs e)
-        {
-            xnaControl.branchlength_valueChanged((NumericUpDown)sender);
-        }
-
-        private void branchscale_valueChanged(object sender, EventArgs e)
-        {
-            xnaControl.branchscale_valueChanged((NumericUpDown)sender);
-        }
-
-        private void pitchangle_valueChanged(object sender, EventArgs e)
-        {
-            xnaControl.pitchangle_valueChanged((NumericUpDown)sender);
-        }
-
-        private void twistangle_valueChanged(object sender, EventArgs e)
-        {
-            xnaControl.twistangle_valueChanged((NumericUpDown)sender);
-        }
+        }        
 
         private void button1_Click(object sender, EventArgs e)
         {
-            tabPage2.Controls.Remove(label15);
+            error.Visible = false;            
             RuleSystem rules;
             try
             {
@@ -160,7 +124,7 @@ namespace LTreeDemo
             }
             catch (ArgumentException ex)
             {
-                tabPage2.Controls.Add(label15);
+                error.Visible = true;
                 return;
             }
 
@@ -169,7 +133,7 @@ namespace LTreeDemo
 
         void fill_rulesystem()
         {
-            MultiMap<string, string> rules = xnaControl.Rules.Rules;
+            MultiMap<string, string> rules = xnaControl.Rules.RuleMap;
 
             //set root rule
             richTextBox1.Text = rules[xnaControl.Rules.Root][0];
@@ -190,21 +154,6 @@ namespace LTreeDemo
             }
 
             richTextBox2.Text = sb.ToString();
-<<<<<<< HEAD
-=======
         }
-
-        void rules_selectionChanged(object sender, EventArgs e)
-        {
-            RichTextBox textBox = (RichTextBox)sender;
-            Console.WriteLine("Selection at: " + textBox.SelectionStart);
->>>>>>> da3b5a26b2ec0f8f024c64b6fd32cd6c1f624f0a
-        }
-
-        /*void rules_selectionChanged(object sender, EventArgs e)
-        {
-            RichTextBox textBox = (RichTextBox)sender;
-            Console.WriteLine("Selection at: " + textBox.SelectionStart);
-        }*/
     }
 }
