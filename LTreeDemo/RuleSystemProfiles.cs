@@ -46,22 +46,22 @@ namespace LTreesLibrary
         {            
             MultiMap<string, string> ruleMap = new MultiMap<string, string>();
 
-            ruleMap.Add("R", "ffffA");
-            ruleMap.Add("A", "ffb++B>>>+++fB>>>---ffB2{E}");
-            ruleMap.Add("B", "[>>[!+++C]<<<[!--C]]");
-            ruleMap.Add("C", "ff+Dl");
-            ruleMap.Add("D", "ff+[>--C][<++C]Dl");
+            ruleMap.Add("R", "ffffbA");
+            ruleMap.Add("A", "B>B>fB>fB>fB>fB>fB>fB2{E}");
+            ruleMap.Add("B", "[>>C>>C>>C>>C>>C>>C>>C>>C>>C>>C>>C>>C>>C>>C>>C>>C>>C]");
+            ruleMap.Add("C", "[!---flfl+Dl]");
+            ruleMap.Add("D", "flfl+[>--C][<++C]Dl");
             ruleMap.Add("E", "ffl");
 
             RuleSystem.SystemVariables TreeVariables = new RuleSystem.SystemVariables();
-            TreeVariables.boneLevels = 1;
+            TreeVariables.boneLevels = 2;
             TreeVariables.iterations = 4;
             TreeVariables.twistAngle = 10;
             TreeVariables.twistVariation = 5;
-            TreeVariables.branchLength = 300f;
+            TreeVariables.branchLength = 150f;
             TreeVariables.lengthVariation = 50f;
             TreeVariables.branchScale = 0.8f;
-            TreeVariables.pitchAngle = 0f;
+            TreeVariables.pitchAngle = 45f;
             TreeVariables.pitchVariation = 5f;
             TreeVariables.branchWidth = 128f;
             TreeVariables.backwardLength = 128f;
@@ -105,24 +105,22 @@ namespace LTreesLibrary
         {
             MultiMap<string, string> ruleMap = new MultiMap<string, string>();
 
-            ruleMap.Add("R", ">+f+f+f+f+A");
-            ruleMap.Add("A", ">+fbB>+fB>+fB1{C}");
-            ruleMap.Add("C", "fl");
-            ruleMap.Add("B", "[>[!+D]>[!+D]]");
-            ruleMap.Add("B", "[>[!+D]>[!+D]>[!+D]]");
-            ruleMap.Add("D", "f+El");
-            ruleMap.Add("E", "f+[>+D][>+D]El");
+            ruleMap.Add("R", "ffffffbA");
+            ruleMap.Add("A", ">B>B1{C}");
+            ruleMap.Add("C", "flfl");
+            ruleMap.Add("B", "[[!++Cl]>>>>[!++Cl]]");
+            ruleMap.Add("B", "[[!++Cl]>>>[!++Cl]>>>[!++Cl]]");
 
             RuleSystem.SystemVariables TreeVariables = new RuleSystem.SystemVariables();
             TreeVariables.boneLevels = 1;
-            TreeVariables.iterations = 4;
-            TreeVariables.twistAngle = 0;
+            TreeVariables.iterations = 3;
+            TreeVariables.twistAngle = 45;
             TreeVariables.twistVariation = 360f;
             TreeVariables.branchLength = 260f;
             TreeVariables.lengthVariation = 50f;
             TreeVariables.branchScale = 0.8f;
-            TreeVariables.pitchAngle = 20f;
-            TreeVariables.pitchVariation = 50f;
+            TreeVariables.pitchAngle = 45f;
+            TreeVariables.pitchVariation = 10f;
             TreeVariables.branchWidth = 128f;
 
             RuleSystem rules = new RuleSystem(ruleMap, TreeVariables, "R");

@@ -175,16 +175,16 @@ namespace LTreeDemo
                 content.Load<Effect>("LTreeShaders\\Leaves"));
 
             Profiles.Add(trees.Birch);
-            ProfileNames.Add("Birch");
+            ProfileNames.Add("Example 1");
 
             Profiles.Add(trees.Pine);
-            ProfileNames.Add("Pine");
+            ProfileNames.Add("Example 2");
 
             Profiles.Add(trees.Palm);
-            ProfileNames.Add("Palm");
+            ProfileNames.Add("Example 3");
 
             Profiles.Add(trees.Willow);
-            ProfileNames.Add("Willow");
+            ProfileNames.Add("Example 4");
         
             profileIndex = 0;
 
