@@ -426,7 +426,7 @@ namespace LTreeDemo
         {
             int deltaAge = (send as TrackBar).Value-previousAge;
 
-            CurrentProfile.Rules.Variables.branchLength += 80 * deltaAge;
+            CurrentProfile.Rules.Variables.branchLength += 10 * deltaAge;
             CurrentProfile.Rules.Variables.branchScale += 0.02f * deltaAge;
             CurrentProfile.Rules.Variables.branchWidth += 20 * deltaAge;
             CurrentProfile.Generator.BranchWidth = CurrentProfile.Rules.Variables.branchWidth;

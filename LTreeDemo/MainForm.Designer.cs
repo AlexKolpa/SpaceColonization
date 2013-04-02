@@ -362,6 +362,8 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(227, 616);
             this.tabControl1.TabIndex = 2;
+            this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.TabControl1_Selecting);
+            this.tabControl1.TabIndexChanged += new System.EventHandler(this.UpdateOptions);
             // 
             // tabPage1
             // 
@@ -450,7 +452,7 @@
             this.branchwidth.BackColor = System.Drawing.SystemColors.Window;
             this.branchwidth.LargeChange = 50;
             this.branchwidth.Location = new System.Drawing.Point(9, 243);
-            this.branchwidth.Maximum = 200;
+            this.branchwidth.Maximum = 250;
             this.branchwidth.Minimum = 50;
             this.branchwidth.Name = "branchwidth";
             this.branchwidth.Size = new System.Drawing.Size(198, 20);

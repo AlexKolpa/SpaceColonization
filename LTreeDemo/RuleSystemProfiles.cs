@@ -46,8 +46,9 @@ namespace LTreesLibrary
         {            
             MultiMap<string, string> ruleMap = new MultiMap<string, string>();
 
-            ruleMap.Add("R", "ffffA");
-            ruleMap.Add("A", "ffb++B>>>+++fB>>>---ffB2{E}");
+            ruleMap.Add("R", "ffE");
+            ruleMap.Add("E", "ffAE");
+            ruleMap.Add("A", "ffb+++++B>>>++++fB>>>---ffB2{E}");
             ruleMap.Add("B", "[>>[!+++C]<<<[!--C]]");
             ruleMap.Add("C", "ff+Dl");
             ruleMap.Add("D", "ff+[>--C][<++C]Dl");
@@ -75,13 +76,8 @@ namespace LTreesLibrary
         {
             MultiMap<string, string> ruleMap = new MultiMap<string, string>();
 
-            ruleMap.Add("R", "ffffA");
-            ruleMap.Add("A", ">+fbB<+fB>-fB1{D}");
-            ruleMap.Add("B", "[<[!-C]>[!+C]]");
-            ruleMap.Add("B", "[>[!+C]<[!-C]>[!-C]]");
-            ruleMap.Add("C", "#f+f+D");
-            ruleMap.Add("D", "<[+C]>[+C]l");
-
+            ruleMap.Add("R", "ffffffbA");            
+            ruleMap.Add("A", "ff[>++Al]>>[>>>--Al]>>>A");
 
             RuleSystem.SystemVariables TreeVariables = new RuleSystem.SystemVariables();
             TreeVariables.boneLevels = 1;
@@ -90,7 +86,7 @@ namespace LTreesLibrary
             TreeVariables.twistVariation = 5f;
             TreeVariables.branchLength = 260f;
             TreeVariables.lengthVariation = 30f;
-            TreeVariables.branchScale = 0.8f;
+            TreeVariables.branchScale = 0.85f;
             TreeVariables.pitchAngle = 20f;
             TreeVariables.pitchVariation = 5f;
             TreeVariables.branchWidth = 128f;
