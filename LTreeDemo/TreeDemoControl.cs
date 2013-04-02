@@ -24,8 +24,9 @@ namespace LTreeDemo
 {
     public class TreeDemoControl : GraphicsDeviceControl
     {
-        public const float MaxCamDistance = 1000f;        
+        public const float MaxCamDistance = 1000f;
 
+        private int previousAge = 0;
         private ContentManager content;
         private int seed;
         private int profileIndex;
@@ -419,6 +420,19 @@ namespace LTreeDemo
             CurrentProfile.Rules.Variables.branchWidth = ((TrackBar)send).Value;
             CurrentProfile.Generator.BranchWidth = CurrentProfile.Rules.Variables.branchWidth;
             RecalculateTree();
+        }
+
+        public void agelevel_valueChanged(object send, EventArgs e)
+        {
+            int deltaAge = (send as TrackBar).Value-previousAge;
+
+            CurrentProfile.Rules.Variables.branchLength += 80 * deltaAge;
+            CurrentProfile.Rules.Variables.branchScale += 0.02f * deltaAge;
+            CurrentProfile.Rules.Variables.branchWidth += 20 * deltaAge;
+            CurrentProfile.Generator.BranchWidth = CurrentProfile.Rules.Variables.branchWidth;
+            RecalculateTree();
+
+            previousAge += deltaAge;
         }
 
         void RecalculateTree()

@@ -33,6 +33,7 @@ namespace LTreeDemo
             twistangle.Scroll += new EventHandler(xnaControl.twistangle_valueChanged);
             pitchangle.Scroll += new EventHandler(xnaControl.pitchangle_valueChanged);
             branchwidth.Scroll += new EventHandler(xnaControl.branchwidth_valueChanged);
+            agevalue.Scroll += new EventHandler(xnaControl.agelevel_valueChanged);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)

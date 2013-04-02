@@ -53,7 +53,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label15 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.agevalue = new System.Windows.Forms.TrackBar();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.branchscale = new System.Windows.Forms.TrackBar();
@@ -81,7 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.seedBox)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.agevalue)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.branchscale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchwidth)).BeginInit();
@@ -366,7 +366,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.label15);
-            this.tabPage1.Controls.Add(this.trackBar1);
+            this.tabPage1.Controls.Add(this.agevalue);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.profileBox);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -386,13 +386,13 @@
             this.label15.TabIndex = 3;
             this.label15.Text = "Age";
             // 
-            // trackBar1
+            // agevalue
             // 
-            this.trackBar1.BackColor = System.Drawing.SystemColors.Window;
-            this.trackBar1.Location = new System.Drawing.Point(6, 46);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(205, 45);
-            this.trackBar1.TabIndex = 2;
+            this.agevalue.BackColor = System.Drawing.SystemColors.Window;
+            this.agevalue.Location = new System.Drawing.Point(6, 46);
+            this.agevalue.Name = "agevalue";
+            this.agevalue.Size = new System.Drawing.Size(205, 45);
+            this.agevalue.TabIndex = 2;
             // 
             // tabPage2
             // 
@@ -675,7 +675,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.agevalue)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.branchscale)).EndInit();
@@ -739,7 +739,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TrackBar branchwidth;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar agevalue;
     }
 }
 

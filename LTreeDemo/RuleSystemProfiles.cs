@@ -46,12 +46,12 @@ namespace LTreesLibrary
         {            
             MultiMap<string, string> ruleMap = new MultiMap<string, string>();
 
-            ruleMap.Add("R", ">+f-ff-fA");
-            ruleMap.Add("A", "fb++B>+++fB>---fB2{E}");
-            ruleMap.Add("B", "[>[!+++C]<[!--C]]");
-            ruleMap.Add("C", "f+Dl");
-            ruleMap.Add("D", "f+[>--C][<++C]Dl");
-            ruleMap.Add("E", "fl");
+            ruleMap.Add("R", "ffffA");
+            ruleMap.Add("A", "ffb++B>>>+++fB>>>---ffB2{E}");
+            ruleMap.Add("B", "[>>[!+++C]<<<[!--C]]");
+            ruleMap.Add("C", "ff+Dl");
+            ruleMap.Add("D", "ff+[>--C][<++C]Dl");
+            ruleMap.Add("E", "ffl");
 
             RuleSystem.SystemVariables TreeVariables = new RuleSystem.SystemVariables();
             TreeVariables.boneLevels = 1;
