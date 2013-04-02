@@ -157,5 +157,10 @@ namespace LTreeDemo
 
             richTextBox2.Text = sb.ToString();
         }
+
+        void TabControl1_Selecting(Object sender, TabControlCancelEventArgs e)
+        {
+            UpdateOptions(sender, e);
+        }
     }
 }
