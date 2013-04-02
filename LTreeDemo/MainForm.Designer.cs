@@ -52,6 +52,8 @@
             this.profileBox = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.branchscale = new System.Windows.Forms.TrackBar();
@@ -74,15 +76,12 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.xnaControl = new LTreeDemo.TreeDemoControl();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seedBox)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.branchscale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchwidth)).BeginInit();
@@ -92,8 +91,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.iterations)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -351,7 +348,7 @@
             this.profileBox.FormattingEnabled = true;
             this.profileBox.Location = new System.Drawing.Point(6, 19);
             this.profileBox.Name = "profileBox";
-            this.profileBox.Size = new System.Drawing.Size(180, 21);
+            this.profileBox.Size = new System.Drawing.Size(205, 21);
             this.profileBox.TabIndex = 0;
             this.profileBox.SelectedIndexChanged += new System.EventHandler(this.profileBox_SelectedIndexChanged);
             // 
@@ -368,8 +365,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.label16);
-            this.tabPage1.Controls.Add(this.trackBar2);
             this.tabPage1.Controls.Add(this.label15);
             this.tabPage1.Controls.Add(this.trackBar1);
             this.tabPage1.Controls.Add(this.label1);
@@ -381,6 +376,23 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(78, 244);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(26, 13);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "Age";
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.BackColor = System.Drawing.SystemColors.Window;
+            this.trackBar1.Location = new System.Drawing.Point(6, 46);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(205, 45);
+            this.trackBar1.TabIndex = 2;
             // 
             // tabPage2
             // 
@@ -638,48 +650,10 @@
             this.xnaControl.Location = new System.Drawing.Point(0, 0);
             this.xnaControl.Name = "xnaControl";
             this.xnaControl.ProfileIndex = 0;
-            this.xnaControl.Rules = null;
             this.xnaControl.Seed = 0;
             this.xnaControl.Size = new System.Drawing.Size(647, 616);
             this.xnaControl.TabIndex = 1;
             this.xnaControl.Text = "xnaControl";
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.BackColor = System.Drawing.SystemColors.Window;
-            this.trackBar1.Location = new System.Drawing.Point(7, 47);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(45, 191);
-            this.trackBar1.TabIndex = 2;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 245);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(26, 13);
-            this.label15.TabIndex = 3;
-            this.label15.Text = "Age";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Transparent;
-            this.label16.Location = new System.Drawing.Point(99, 244);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(30, 13);
-            this.label16.TabIndex = 5;
-            this.label16.Text = "Light";
-            // 
-            // trackBar2
-            // 
-            this.trackBar2.BackColor = System.Drawing.SystemColors.Window;
-            this.trackBar2.Location = new System.Drawing.Point(99, 46);
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar2.Size = new System.Drawing.Size(45, 191);
-            this.trackBar2.TabIndex = 4;
             // 
             // MainForm
             // 
@@ -701,6 +675,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.branchscale)).EndInit();
@@ -711,8 +686,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.iterations)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -765,8 +738,6 @@
         private System.Windows.Forms.TrackBar iterations;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TrackBar branchwidth;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TrackBar trackBar2;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TrackBar trackBar1;
     }

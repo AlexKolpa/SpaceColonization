@@ -408,6 +408,7 @@ namespace LTreesLibrary.Trees
 
         private static void ParseInstructionsFromRules(string rule, List<TreeCrayonInstruction> instructions, MultiMap<string, ProductionStringPair> map, RuleSystem.SystemVariables variables)
         {
+            int obtainedValue = -1;
             for (int i = 0; i < rule.Length; i++)
             {
                 switch (rule[i])
@@ -415,6 +416,14 @@ namespace LTreesLibrary.Trees
                     //forward
                     case 'f':
                         instructions.Add(new Forward(variables));
+                        break;
+                    //backward
+                    case '!':
+                        instructions.Add(new Backward(variables));
+                        break;
+                    //align
+                    case '#':
+                        instructions.Add(new Align());
                         break;
                     //pitch up
                     case '+':
@@ -431,10 +440,10 @@ namespace LTreesLibrary.Trees
                     //new child
                     case '[':
                         Child ch = new Child();
-                        int end = rule.IndexOf(']', i);
-                        ParseInstructionsFromRules(rule.Substring(i + 1, end - i - 1), ch.Instructions, map, variables);
+                        int chEnd = childEndIndex(rule.Substring(i), '[', ']');
+                        ParseInstructionsFromRules(rule.Substring(i + 1, chEnd - 1), ch.Instructions, map, variables);
                         instructions.Add(ch);
-                        i = end;
+                        i += chEnd;
                         break;
                     //closing statement for child
                     case ']':
@@ -451,18 +460,86 @@ namespace LTreesLibrary.Trees
                     case 'l':
                         instructions.Add(new Leaf());
                         break;
-                        //add bone
+                    //add bone
                     case 'b':
                         instructions.Add(new Bone(-1));
                         break;
+                    //delta
+                    case 'd':
+                        break;
+                    //maybe
+                    case '(':
+                        Maybe mb;
+                        if (obtainedValue != -1)
+                            mb = new Maybe(obtainedValue / 10f);
+                        else
+                            mb = new Maybe(0.5f);
+
+                        int mbEnd = childEndIndex(rule.Substring(i), '(', ')');
+                        ParseInstructionsFromRules(rule.Substring(i + 1, mbEnd-1), mb.Instructions, map, variables);
+                        instructions.Add(mb);
+                        i += mbEnd;
+                        break;
+                    case ')':
+                        break;
+                    //requireLevel
+                    case '{':
+                        RequireLevel rl;
+                        if (obtainedValue != -1)
+                            rl = new RequireLevel(obtainedValue, CompareType.Less);
+                        else
+                            throw new ArgumentException("Please define the level required");
+
+                        int rlEnd = childEndIndex(rule.Substring(i), '{', '}');
+                        ParseInstructionsFromRules(rule.Substring(i + 1, rlEnd-1), rl.Instructions, map, variables);
+                        instructions.Add(rl);
+                        i += rlEnd;
+                        break;
+                    case '}':
+                        break;
                     //rule call
                     default:
-                        string name = rule[i].ToString();
-                        List<Production> productions = GetProductionsByRef(name, map);
-                        instructions.Add(new Call(productions, -1));
-                        break;
+                        if (Char.IsDigit(rule[i]))
+                        {
+                            try
+                            {
+                                obtainedValue = Int32.Parse(rule[i].ToString());
+                            }catch(Exception e)
+                            {
+                                obtainedValue = -1;
+                            }
+                            continue;
+                        }
+                        else
+                        {
+                            string name = rule[i].ToString();
+                            List<Production> productions = GetProductionsByRef(name, map);
+                            instructions.Add(new Call(productions, -1));
+                            break;
+                        }
+                }
+
+                obtainedValue = -1;
+            }
+        }
+
+        private static int childEndIndex(string substring, char start, char end)
+        {
+            int depth = 0;
+            for (int i = 0; i < substring.Length; i++)
+            {
+                if(substring[i].Equals(start))
+                    depth++;
+                else if(substring[i].Equals(end))
+                    depth--;
+
+                if (depth == 0)
+                {
+                    return i;
                 }
             }
+
+            return -1;
         }
 
         private static List<Production> GetProductionsByRef(String name, MultiMap<string, ProductionStringPair> map)

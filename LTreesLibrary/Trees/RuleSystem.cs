@@ -8,7 +8,7 @@ namespace LTreesLibrary.Trees
     public class RuleSystem
     {
         private static HashSet<char> excludedChars = new HashSet<char>(new[] 
-            { ' ', '\t', '\n', '\r', '^', '#', '!', '~','@','$','%','&','*','\\','|','"','\'',':',';','.',',','?','/'}
+            { ' ', '\t', '\n', '\r', '^', '~','@','$','%','&','*','\\','|','"','\'',':',';','.',',','?','/'}
             );
         private MultiMap<string, string> rules;
 

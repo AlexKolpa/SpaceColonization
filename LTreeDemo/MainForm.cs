@@ -65,13 +65,13 @@ namespace LTreeDemo
             xnaControl.EnableBones = bonesBox.Checked;
             xnaControl.EnableGround = groundBox.Checked;
                         
-            iterations.Value = xnaControl.TreeVariables.boneLevels;
-            iterations.Value = xnaControl.TreeVariables.iterations;
-            branchlength.Value = (int)xnaControl.TreeVariables.branchLength;
-            branchscale.Value = (int)xnaControl.TreeVariables.branchScale;
-            twistangle.Value = (int)xnaControl.TreeVariables.twistAngle;
-            pitchangle.Value = (int)xnaControl.TreeVariables.pitchAngle;
-            branchwidth.Value = (int)xnaControl.TreeVariables.branchWidth;
+            iterations.Value = xnaControl.CurrentProfile.Rules.Variables.boneLevels;
+            iterations.Value = xnaControl.CurrentProfile.Rules.Variables.iterations;
+            branchlength.Value = (int)xnaControl.CurrentProfile.Rules.Variables.branchLength;
+            branchscale.Value = (int)xnaControl.CurrentProfile.Rules.Variables.branchScale;
+            twistangle.Value = (int)xnaControl.CurrentProfile.Rules.Variables.twistAngle;
+            pitchangle.Value = (int)xnaControl.CurrentProfile.Rules.Variables.pitchAngle;
+            branchwidth.Value = (int)xnaControl.CurrentProfile.Rules.Variables.branchWidth;
 
             fill_rulesystem();
         }
@@ -120,7 +120,7 @@ namespace LTreeDemo
             RuleSystem rules;
             try
             {
-                rules = RuleSystem.ParseRuleSystemFromString("R=" + richTextBox1.Text + "\n" + richTextBox2.Text, xnaControl.TreeVariables, "R");
+                rules = RuleSystem.ParseRuleSystemFromString("R=" + richTextBox1.Text + "\n" + richTextBox2.Text, xnaControl.CurrentProfile.Rules.Variables, "R");
             }
             catch (ArgumentException ex)
             {
@@ -128,21 +128,22 @@ namespace LTreeDemo
                 return;
             }
 
-            xnaControl.Rules = rules;
+            xnaControl.CurrentProfile.Rules = rules;
+            xnaControl.RebuildSystem();
         }
 
         void fill_rulesystem()
         {
-            MultiMap<string, string> rules = xnaControl.Rules.RuleMap;
+            MultiMap<string, string> rules = xnaControl.CurrentProfile.Rules.RuleMap;
 
             //set root rule
-            richTextBox1.Text = rules[xnaControl.Rules.Root][0];
+            richTextBox1.Text = rules[xnaControl.CurrentProfile.Rules.Root][0];
 
             //build string for rule system
             StringBuilder sb = new StringBuilder();
             foreach (string key in rules.Keys)
             {
-                if (key.Equals(xnaControl.Rules.Root))
+                if (key.Equals(xnaControl.CurrentProfile.Rules.Root))
                     continue;
 
                 foreach (string value in rules[key])

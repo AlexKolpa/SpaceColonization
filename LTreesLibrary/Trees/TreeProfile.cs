@@ -17,6 +17,7 @@ namespace LTreesLibrary.Trees
         public Texture2D LeafTexture { get; set; }
         public Effect TrunkEffect { get; set; }
         public Effect LeafEffect { get; set; }
+        public RuleSystem Rules { get; set; }
 
         private Random defaultRandom = new Random(123);
 
@@ -24,7 +25,7 @@ namespace LTreesLibrary.Trees
         {
             GraphicsDevice = device;
         }
-        public TreeProfile(GraphicsDevice device, TreeGenerator generator, Texture2D trunkTexture, Texture2D leafTexture, Effect trunkEffect, Effect leafEffect)
+        public TreeProfile(GraphicsDevice device, TreeGenerator generator, Texture2D trunkTexture, Texture2D leafTexture, Effect trunkEffect, Effect leafEffect, RuleSystem rs)
         {
             GraphicsDevice = device;
             Generator = generator;
@@ -32,6 +33,7 @@ namespace LTreesLibrary.Trees
             LeafTexture = leafTexture;
             TrunkEffect = trunkEffect;
             LeafEffect = leafEffect;
+            Rules = rs;
         }
         
         public SimpleTree GenerateSimpleTree(Random random)
@@ -48,6 +50,13 @@ namespace LTreesLibrary.Trees
         public SimpleTree GenerateSimpleTree()
         {
             return GenerateSimpleTree(defaultRandom);
+        }
+
+        public void RebuildSimpleTree(SimpleTree tree)
+        {
+            Generator = TreeGenerator.ParseFromRuleSystem(Rules);
+
+            RecalculateSimpleTree(tree);
         }
 
         public void RecalculateSimpleTree(SimpleTree tree)

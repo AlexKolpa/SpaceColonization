@@ -18,6 +18,7 @@ using LTreeDemo;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 using LTreesLibrary.Trees.Wind;
+using LTreesLibrary;
 
 namespace LTreeDemo
 {
@@ -38,21 +39,7 @@ namespace LTreeDemo
         private Quad groundPlane;
         private BasicEffect groundEffect;
         private Matrix groundWorld = Matrix.CreateRotationX(-MathHelper.PiOver2);
-        private RuleSystem rules;
         private Sky skybox;
-
-        public RuleSystem Rules 
-        { 
-            get {
-                return rules;
-            }  
-            set { 
-                rules = value; 
-                if(Initialized)
-                    RebuildSystem(); 
-            } 
-        }        
-        public RuleSystem.SystemVariables TreeVariables { get; private set; }
 
         public float CameraOrbitAngle { get; set; }
         public float CameraPitchAngle { get; set; }
@@ -162,17 +149,41 @@ namespace LTreeDemo
         {            
 
             content = new ContentManager(Services, "Content");
-
-            InitRuleSystem();
-
-            // Load a single profile
-            Profiles.Add(new TreeProfile(GraphicsDevice,
-                TreeGenerator.ParseFromRuleSystem(Rules),
+            
+            Texture2D[] trunkTextures = new Texture2D[]
+            {
+                content.Load<Texture2D>("Textures\\PineBark"),
                 content.Load<Texture2D>("Textures\\BirchBark"),
+                content.Load<Texture2D>("Textures\\GrayBark")
+
+            };
+
+            Texture2D[] leafTextures = new Texture2D[]
+            {
+                content.Load<Texture2D>("Textures\\PineLeaf"),
                 content.Load<Texture2D>("Textures\\BirchLeaf"),
+                content.Load<Texture2D>("Textures\\GraywoodLeaf"),
+                content.Load<Texture2D>("Textures\\WillowLeaf")
+            };
+
+            RuleSystemProfiles trees = new RuleSystemProfiles(
+                GraphicsDevice,
+                trunkTextures,
+                leafTextures,
                 content.Load<Effect>("LTreeShaders\\Trunk"),
-                content.Load<Effect>("LTreeShaders\\Leaves")));
+                content.Load<Effect>("LTreeShaders\\Leaves"));
+
+            Profiles.Add(trees.Birch);
             ProfileNames.Add("Birch");
+
+            Profiles.Add(trees.Pine);
+            ProfileNames.Add("Pine");
+
+            Profiles.Add(trees.Palm);
+            ProfileNames.Add("Palm");
+
+            Profiles.Add(trees.Willow);
+            ProfileNames.Add("Willow");
         
             profileIndex = 0;
 
@@ -210,28 +221,6 @@ namespace LTreeDemo
             UpdateTree();
 
             Application.Idle += new EventHandler(Application_Idle);
-        }
-
-        void InitRuleSystem()
-        {
-            MultiMap<string, string> ruleMap = new MultiMap<string, string>();
-
-            ruleMap.Add("R", "fffffbA");
-            ruleMap.Add("A", "ff[>++Al][--Al]>>>A");
-
-            TreeVariables = new RuleSystem.SystemVariables();
-            TreeVariables.boneLevels = 1;
-            TreeVariables.iterations = 5;
-            TreeVariables.twistAngle = 0;
-            TreeVariables.twistVariation = 360f;
-            TreeVariables.branchLength = 260f;
-            TreeVariables.lengthVariation = 0;
-            TreeVariables.branchScale = 0.8f;
-            TreeVariables.pitchAngle = 20f;
-            TreeVariables.pitchVariation = 0;
-            TreeVariables.branchWidth = 128f;
-
-            rules = new RuleSystem(ruleMap, TreeVariables, "R");
         }
 
         protected override bool Draw()
@@ -397,52 +386,51 @@ namespace LTreeDemo
         
         public void iterations_valueChanged(object send, EventArgs e)
         {
-            TreeVariables.iterations = (int)((TrackBar)send).Value;
+            CurrentProfile.Rules.Variables.iterations = (int)((TrackBar)send).Value;
             RebuildSystem();
         }
 
         public void twistangle_valueChanged(object send, EventArgs e)
         {
-            TreeVariables.twistAngle = (float)((TrackBar)send).Value;
+            CurrentProfile.Rules.Variables.twistAngle = (float)((TrackBar)send).Value;
             RecalculateTree();
         }
 
         public void pitchangle_valueChanged(object send, EventArgs e)
         {
-            TreeVariables.pitchAngle = (float)((TrackBar)send).Value;
+            CurrentProfile.Rules.Variables.pitchAngle = (float)((TrackBar)send).Value;
             RecalculateTree();
         }
 
         public void branchlength_valueChanged(object send, EventArgs e)
         {
-            TreeVariables.branchLength = (float)((TrackBar)send).Value;
+            CurrentProfile.Rules.Variables.branchLength = (float)((TrackBar)send).Value;
             RecalculateTree();
         }
 
         public void branchscale_valueChanged(object send, EventArgs e)
         {
-            TreeVariables.branchScale = ((TrackBar)send).Value/50f + 0.8f;
+            CurrentProfile.Rules.Variables.branchScale = ((TrackBar)send).Value / 50f + 0.8f;
             RecalculateTree();
         }
 
         public void branchwidth_valueChanged(object send, EventArgs e)
         {
-            TreeVariables.branchWidth = ((TrackBar)send).Value;
-            CurrentProfile.Generator.BranchWidth = TreeVariables.branchWidth;
+            CurrentProfile.Rules.Variables.branchWidth = ((TrackBar)send).Value;
+            CurrentProfile.Generator.BranchWidth = CurrentProfile.Rules.Variables.branchWidth;
             RecalculateTree();
         }
 
         void RecalculateTree()
         {
-            Profiles[0].RecalculateSimpleTree(Tree);
+            CurrentProfile.RecalculateSimpleTree(Tree);
             if (TreeUpdated != null)
                 TreeUpdated(this, EventArgs.Empty);
         }
 
-        void RebuildSystem()
+        public void RebuildSystem()
         {
-            Profiles[0].Generator = TreeGenerator.ParseFromRuleSystem(Rules);
-            Profiles[0].RecalculateSimpleTree(tree);
+            CurrentProfile.RebuildSimpleTree(Tree);
             if (TreeUpdated != null)
                 TreeUpdated(this, EventArgs.Empty);
         }
